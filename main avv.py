@@ -72,6 +72,3 @@ st.markdown("""
 - WHO Indonesia
 - Data simulasi untuk keperluan demo
 """)
-
-if (selected == 'Prediksi):
-    st.title("🔍 Prediksi Risiko Serangan Jantung")
