@@ -8,72 +8,77 @@ Original file is located at
 """
 
 import streamlit as st
-from streamlit_option_menu import option_menu
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import plotly.express as px
 
-#navigasi sidebar
+# Sidebar navigasi
 st.sidebar.title("Heart attack")
 page = st.sidebar.radio("Pilih Halaman", ["📄 Deskripsi Data", "🛠️ Modeling", "🔮 Prediksi"])
 
-#halaman Informasi
+# Halaman: Deskripsi Data
 if page == "📄 Deskripsi Data":
     st.title('🫀 Serangan Jantung Di Indonesia')
     st.markdown("### Statistik, Penyebab, dan Upaya Pencegahan")
 
-# Penjelasan Umum
-st.markdown("""
-Serangan jantung merupakan salah satu penyebab kematian utama di Indonesia. Penyakit ini terjadi ketika aliran darah ke bagian jantung tersumbat, biasanya karena penumpukan lemak, kolesterol, dan zat lain. Menurut data Kementerian Kesehatan dan WHO, prevalensi penyakit jantung terus meningkat dari tahun ke tahun.
+    # Penjelasan Umum
+    st.markdown("""
+    Serangan jantung merupakan salah satu penyebab kematian utama di Indonesia. Penyakit ini terjadi ketika aliran darah ke bagian jantung tersumbat, biasanya karena penumpukan lemak, kolesterol, dan zat lain. 
+    Menurut data Kementerian Kesehatan dan WHO, prevalensi penyakit jantung terus meningkat dari tahun ke tahun.
 
-Berikut adalah data dan informasi terkait tren serangan jantung di Indonesia.
-""")
-# Data simulasi
-data = {
-    "Tahun": list(range(2015, 2024)),
-    "Jumlah_Kasus": [12000, 13500, 14200, 15500, 16800, 18200, 19500, 20500, 22000]
-}
-df = pd.DataFrame(data)
+    Berikut adalah data dan informasi terkait tren serangan jantung di Indonesia.
+    """)
 
-# Grafik Matplotlib
-st.markdown("### 📊 Tren Jumlah Kasus Serangan Jantung (2015–2023)")
-fig, ax = plt.subplots()
-ax.plot(df["Tahun"], df["Jumlah_Kasus"], marker="o", color="red", linestyle="-")
-ax.set_title("Tren Jumlah Kasus Serangan Jantung di Indonesia")
-ax.set_xlabel("Tahun")
-ax.set_ylabel("Jumlah Kasus")
-st.pyplot(fig)
+    # Data simulasi
+    data = {
+        "Tahun": list(range(2015, 2024)),
+        "Jumlah_Kasus": [12000, 13500, 14200, 15500, 16800, 18200, 19500, 20500, 22000]
+    }
+    df = pd.DataFrame(data)
 
-# Visualisasi Interaktif dengan Plotly
-st.markdown("### 🌐 Interaktif: Visualisasi Kasus per Tahun")
-fig_plotly = px.bar(df, x="Tahun", y="Jumlah_Kasus", color="Jumlah_Kasus",
-                    labels={"Jumlah_Kasus": "Jumlah Kasus"},
-                    title="Jumlah Kasus Serangan Jantung di Indonesia per Tahun")
-st.plotly_chart(fig_plotly, use_container_width=True)
+    # Grafik menggunakan Matplotlib
+    st.markdown("### 📊 Tren Jumlah Kasus Serangan Jantung (2015–2023)")
+    fig, ax = plt.subplots()
+    ax.plot(df["Tahun"], df["Jumlah_Kasus"], marker="o", color="red", linestyle="-")
+    ax.set_title("Tren Jumlah Kasus Serangan Jantung di Indonesia")
+    ax.set_xlabel("Tahun")
+    ax.set_ylabel("Jumlah Kasus")
+    st.pyplot(fig)
 
-# Informasi Pencegahan
-st.markdown("### 🩺 Pencegahan Serangan Jantung")
-st.markdown("""
-Beberapa cara pencegahan yang dapat dilakukan:
-- Menjaga pola makan sehat (rendah lemak dan kolesterol)
-- Olahraga teratur
-- Menghindari merokok dan alkohol
-- Rutin memeriksa tekanan darah dan kadar kolesterol
-- Mengelola stres dengan baik
-""")
+    # Visualisasi Interaktif menggunakan Plotly
+    st.markdown("### 🌐 Interaktif: Visualisasi Kasus per Tahun")
+    fig_plotly = px.bar(
+        df, x="Tahun", y="Jumlah_Kasus", color="Jumlah_Kasus",
+        labels={"Jumlah_Kasus": "Jumlah Kasus"},
+        title="Jumlah Kasus Serangan Jantung di Indonesia per Tahun"
+    )
+    st.plotly_chart(fig_plotly, use_container_width=True)
 
-# Sumber
-st.markdown("### 📚 Sumber Data")
-st.markdown("""
-- Kementerian Kesehatan RI
-- WHO Indonesia
-- Data simulasi untuk keperluan demo
-""")
+    # Informasi Pencegahan
+    st.markdown("### 🩺 Pencegahan Serangan Jantung")
+    st.markdown("""
+    Beberapa cara pencegahan yang dapat dilakukan:
+    - Menjaga pola makan sehat (rendah lemak dan kolesterol)
+    - Olahraga teratur
+    - Menghindari merokok dan alkohol
+    - Rutin memeriksa tekanan darah dan kadar kolesterol
+    - Mengelola stres dengan baik
+    """)
 
+    # Sumber
+    st.markdown("### 📚 Sumber Data")
+    st.markdown("""
+    - Kementerian Kesehatan RI
+    - WHO Indonesia
+    - Data simulasi untuk keperluan demo
+    """)
+
+# Halaman: Modeling
 elif page == "🛠️ Modeling":
-    st.title("🛠️ Modeling data")
+    st.title("🛠️ Modeling Data")
+    st.markdown("Konten modeling akan ditambahkan di sini.")
 
-else 
-    st.title('🔮 Prediksi Heart attack')
-
+# Halaman: Prediksi
+elif page == "🔮 Prediksi":
+    st.title("🔮 Prediksi Heart Attack")
+    st.markdown("Halaman prediksi akan dikembangkan lebih lanjut.")
