@@ -66,6 +66,11 @@ if page == "📄 Deskripsi Data":
     # Visualisasi
     # ===============================
     st.subheader("📈 Prevalensi Penyakit Jantung per Tahun")
+    st.markdown("""
+    - **2013**: Prevalensi penyakit jantung sebesar **0,5%** dari populasi.
+    - **2018**: Meningkat menjadi **1,5%**, setara dengan lebih dari **2,78 juta** penderita.
+    - **2023**: Berdasarkan Survei Kesehatan Indonesia, prevalensi mencapai **0,85%**, dengan jumlah penderita sekitar **2,29 juta orang** dari total **212,6 juta** penduduk berusia 15 tahun ke atas.
+    """)
     fig1, ax1 = plt.subplots()
     ax1.plot(prevalensi_data["Tahun"], prevalensi_data["Prevalensi (%)"], marker='o', color='blue')
     ax1.set_ylabel("Prevalensi (%)")
