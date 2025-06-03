@@ -111,6 +111,9 @@ if page == "📄 Deskripsi Data":
     st.pyplot(fig4)
 
     st.subheader("🏥 10 Provinsi dengan Prevalensi Tertinggi (2023)")
+    st.markdown("""
+    Berdasarkan data Survei Kesehatan Indonesia 2023, berikut adalah 10 provinsi dengan prevalensi penyakit jantung tertinggi:
+    """)
     fig5, ax5 = plt.subplots()
     ax5.barh(provinsi_data["Provinsi"], provinsi_data["Prevalensi (%)"], color='orange')
     ax5.set_xlabel("Prevalensi (%)")
