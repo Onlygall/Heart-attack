@@ -78,6 +78,12 @@ if page == "📄 Deskripsi Data":
     st.pyplot(fig1)
 
     st.subheader("💰 Biaya Penanganan Penyakit Jantung oleh BPJS")
+    st.markdown("""
+    - **2014**: BPJS Kesehatan mengeluarkan dana sebesar Rp4,4 triliun untuk penanganan penyakit jantung.
+    - **2016**: Meningkat menjadi Rp7,4 triliun.
+    - **2018**: Naik lagi menjadi Rp9,3 triliun.
+    - **2023**: Total pembiayaan untuk penyakit jantung dan stroke mencapai Rp22,8 triliun, menjadikannya beban biaya terbesar dalam program Jaminan Kesehatan Nasional.
+    """)
     fig2, ax2 = plt.subplots()
     ax2.plot(biaya_data["Tahun"], biaya_data["Biaya (Triliun Rp)"], marker='s', color='red')
     ax2.set_ylabel("Biaya (Triliun Rp)")
