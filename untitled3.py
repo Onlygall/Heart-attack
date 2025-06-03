@@ -124,28 +124,28 @@ if page == "📄 Deskripsi Data":
     st.markdown("---")
     st.caption("Data bersumber dari Kemenkes, BPJS Kesehatan, dan laporan riset kesehatan dasar (Riskesdas).")
 
-    # ===============================
-    # Pencegahan
-    # ===============================
-    st.markdown("### 🩺 Pencegahan Serangan Jantung")
+    st.markdown("### ⚠️ Faktor Risiko Utama")
+    st.markdown("Peningkatan kasus penyakit jantung di Indonesia dipengaruhi oleh beberapa faktor risiko, antara lain:")
+
     st.markdown("""
-    Beberapa cara pencegahan yang dapat dilakukan:
-    - Menjaga pola makan sehat (rendah lemak dan kolesterol)
-    - Olahraga teratur
-    - Menghindari merokok dan alkohol
-    - Rutin memeriksa tekanan darah dan kadar kolesterol
-    - Mengelola stres dengan baik
+    - **Merokok**: Prevalensi merokok di kalangan pria dewasa mencapai **74,3%**, dan **6,5%** di kalangan wanita.
+    - **Obesitas**: Prevalensi obesitas meningkat dari **10,5%** pada tahun **2013** menjadi **21,8%** pada tahun **2018**.
+    - **Gaya Hidup Tidak Sehat**: Pola makan tinggi lemak, gula, dan garam, serta kurangnya aktivitas fisik.
+    - **Stres dan Tekanan Kerja**: Banyak individu usia **30–40 tahun** mengalami tekanan tinggi dari pekerjaan dan tanggung jawab keluarga.
     """)
 
-    # ===============================
-    # Sumber
-    # ===============================
-    st.markdown("### 📚 Sumber Data")
+    st.markdown("### 🩺 Upaya Pencegahan dan Penanggulangan")
+    st.markdown("Kementerian Kesehatan RI telah melakukan berbagai upaya untuk menanggulangi peningkatan penyakit jantung, antara lain:")
+    st.markdown("*Sumber: [kemkes.go.id](https://kemkes.go.id)*")
+
     st.markdown("""
-    - Kementerian Kesehatan RI
-    - WHO Indonesia
-    - Data simulasi untuk keperluan demo
+    - **Edukasi Masyarakat**: Meningkatkan kesadaran tentang risiko penyakit jantung dan pentingnya gaya hidup sehat melalui program edukasi di sekolah dan komunitas.
+    - **Promosi Aktivitas Fisik**: Mendorong masyarakat untuk berolahraga secara teratur.
+    - **Penguatan Layanan Primer**: Meningkatkan kapasitas dan kapabilitas layanan kesehatan primer, termasuk pembangunan **Puskesmas** dan penyediaan **obat esensial**.
     """)
+
+
+
 
 # ===============================
 # Halaman: Modeling
