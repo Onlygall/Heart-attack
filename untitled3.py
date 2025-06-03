@@ -91,6 +91,9 @@ if page == "📄 Deskripsi Data":
     st.pyplot(fig2)
 
     st.subheader("👶 Usia Rata-rata Diagnosis Pertama")
+    st.markdown("""
+    Rata-rata usia diagnosis pertama penyakit jantung menurun dari 48,5 tahun pada 2013 menjadi 43,2 tahun pada 2023.
+    """)
     fig3, ax3 = plt.subplots()
     ax3.bar(usia_diagnosis_data["Tahun"], usia_diagnosis_data["Usia Rata-rata (Tahun)"], color='green')
     ax3.set_ylabel("Usia (Tahun)")
@@ -98,6 +101,9 @@ if page == "📄 Deskripsi Data":
     st.pyplot(fig3)
 
     st.subheader("📊 Kenaikan Kasus Berdasarkan Kelompok Usia")
+    st.markdown("""
+    Kasus penyakit jantung pada usia di bawah 45 tahun meningkat sebesar 66% antara 2020–2023, lebih cepat dibandingkan kelompok usia di atas 46 tahun yang meningkat 52%.
+    """)
     fig4, ax4 = plt.subplots()
     ax4.bar(kenaikan_usia_data["Kelompok Usia"], kenaikan_usia_data["Kenaikan Kasus (%)"], color='purple')
     ax4.set_ylabel("Kenaikan Kasus (%)")
