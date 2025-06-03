@@ -15,13 +15,11 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 
 #navigasi sidebar
-with st.sidebar:
-    selected = option_menu('Serangan Jantung Di Indonesia',
-    ['Informasi','Prediksi','Visualisasi'],
-    default_index=0)
+st.sidebar.title("Heart attack")
+page = st.sidebar.radio("Pilih Halaman", ["📄 Deskripsi Data", "🛠️ Modeling", "🔮 Prediksi"])
 
 #halaman Informasi
-if (selected == 'Informasi'):
+if page == "📄 Deskripsi Data":
     st.title('🫀 Serangan Jantung Di Indonesia')
     st.markdown("### Statistik, Penyebab, dan Upaya Pencegahan")
 
@@ -72,3 +70,10 @@ st.markdown("""
 - WHO Indonesia
 - Data simulasi untuk keperluan demo
 """)
+
+elif page == "🛠️ Modeling":
+    st.title('🛠️ Modeling data')
+
+else 
+    st.title('🔮 Prediksi Heart attack')
+
