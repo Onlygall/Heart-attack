@@ -72,7 +72,7 @@ st.markdown("""
 """)
 
 elif page == "🛠️ Modeling":
-    st.title('🛠️ Modeling data')
+    st.title("🛠️ Modeling data")
 
 else 
     st.title('🔮 Prediksi Heart attack')
