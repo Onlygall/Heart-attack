@@ -29,30 +29,74 @@ if page == "📄 Deskripsi Data":
     Berikut adalah data dan informasi terkait tren serangan jantung di Indonesia.
     """)
 
-    # Data simulasi
-    data = {
-        "Tahun": list(range(2015, 2024)),
-        "Jumlah_Kasus": [12000, 13500, 14200, 15500, 16800, 18200, 19500, 20500, 22000]
-    }
-    df = pd.DataFrame(data)
+    # DATA
+prevalensi_data = pd.DataFrame({
+    "Tahun": [2013, 2018, 2023],
+    "Prevalensi (%)": [0.5, 1.5, 0.85]
+})
 
-    # Grafik menggunakan Matplotlib
-    st.markdown("### 📊 Tren Jumlah Kasus Serangan Jantung (2015–2023)")
-    fig, ax = plt.subplots()
-    ax.plot(df["Tahun"], df["Jumlah_Kasus"], marker="o", color="red", linestyle="-")
-    ax.set_title("Tren Jumlah Kasus Serangan Jantung di Indonesia")
-    ax.set_xlabel("Tahun")
-    ax.set_ylabel("Jumlah Kasus")
-    st.pyplot(fig)
+biaya_data = pd.DataFrame({
+    "Tahun": [2014, 2016, 2018, 2023],
+    "Biaya (Triliun Rp)": [4.4, 7.4, 9.3, 22.8]
+})
 
-    # Visualisasi Interaktif menggunakan Plotly
-    st.markdown("### 🌐 Interaktif: Visualisasi Kasus per Tahun")
-    fig_plotly = px.bar(
-        df, x="Tahun", y="Jumlah_Kasus", color="Jumlah_Kasus",
-        labels={"Jumlah_Kasus": "Jumlah Kasus"},
-        title="Jumlah Kasus Serangan Jantung di Indonesia per Tahun"
-    )
-    st.plotly_chart(fig_plotly, use_container_width=True)
+usia_diagnosis_data = pd.DataFrame({
+    "Tahun": [2013, 2023],
+    "Usia Rata-rata (Tahun)": [48.5, 43.2]
+})
+
+kenaikan_usia_data = pd.DataFrame({
+    "Kelompok Usia": ["< 45 Tahun", "≥ 46 Tahun"],
+    "Kenaikan Kasus (%)": [66, 52]
+})
+
+provinsi_data = pd.DataFrame({
+    "Provinsi": [
+        "DI Yogyakarta", "Papua Tengah", "DKI Jakarta", "Jawa Barat", "Kalimantan Timur",
+        "Bali", "Kalimantan Utara", "Kepulauan Riau", "Jawa Timur", "Sumatera Barat"
+    ],
+    "Prevalensi (%)": [1.67, 1.65, 1.56, 1.18, 1.08, 1.0, 0.95, 0.91, 0.88, 0.87]
+})
+
+# VISUALISASI
+st.subheader("📈 Prevalensi Penyakit Jantung per Tahun")
+fig1, ax1 = plt.subplots()
+ax1.plot(prevalensi_data["Tahun"], prevalensi_data["Prevalensi (%)"], marker='o', color='blue')
+ax1.set_ylabel("Prevalensi (%)")
+ax1.grid(True)
+st.pyplot(fig1)
+
+st.subheader("💰 Biaya Penanganan Penyakit Jantung oleh BPJS")
+fig2, ax2 = plt.subplots()
+ax2.plot(biaya_data["Tahun"], biaya_data["Biaya (Triliun Rp)"], marker='s', color='red')
+ax2.set_ylabel("Biaya (Triliun Rp)")
+ax2.grid(True)
+st.pyplot(fig2)
+
+st.subheader("👶 Usia Rata-rata Diagnosis Pertama")
+fig3, ax3 = plt.subplots()
+ax3.bar(usia_diagnosis_data["Tahun"], usia_diagnosis_data["Usia Rata-rata (Tahun)"], color='green')
+ax3.set_ylabel("Usia (Tahun)")
+ax3.grid(True)
+st.pyplot(fig3)
+
+st.subheader("📊 Kenaikan Kasus Berdasarkan Kelompok Usia")
+fig4, ax4 = plt.subplots()
+ax4.bar(kenaikan_usia_data["Kelompok Usia"], kenaikan_usia_data["Kenaikan Kasus (%)"], color='purple')
+ax4.set_ylabel("Kenaikan Kasus (%)")
+ax4.grid(True)
+st.pyplot(fig4)
+
+st.subheader("🏥 10 Provinsi dengan Prevalensi Tertinggi (2023)")
+fig5, ax5 = plt.subplots()
+ax5.barh(provinsi_data["Provinsi"], provinsi_data["Prevalensi (%)"], color='orange')
+ax5.set_xlabel("Prevalensi (%)")
+ax5.invert_yaxis()
+ax5.grid(True)
+st.pyplot(fig5)
+
+st.markdown("---")
+st.caption("Data bersumber dari Kemenkes, BPJS Kesehatan, dan laporan riset kesehatan dasar (Riskesdas).")
 
     # Informasi Pencegahan
     st.markdown("### 🩺 Pencegahan Serangan Jantung")
