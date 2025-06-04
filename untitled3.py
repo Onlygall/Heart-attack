@@ -154,17 +154,13 @@ if page == "📄 Deskripsi Data":
     df.describe()
 
     
-    st.markdown("### 📊 Eksplorasi Data: Heart Attack Prediction Indonesia")
+
     st.write("Jumlah baris dan kolom:", df.shape)
-    st.dataframe(df.head(), height=200)
+    num_rows = st.slider("Berapa banyak baris ingin ditampilkan?", 5, 50, 10)
+    st.dataframe(df.head(num_rows))
 
-    if show_describe:
-        st.subheader("📊 Statistik Deskriptif")
-        st.dataframe(df.describe(include='all'), height=300)
-
-    if show_nulls:
-        st.subheader("❗ Missing Values")
-        st.dataframe(df.isnull().sum().to_frame(name="Jumlah"), height=200)
+    st.subheader("📐 Statistik Deskriptif (df.describe())")
+    st.dataframe(df.describe())
 
     st.subheader("📈 Distribusi Fitur Numerik")
     num_cols = df.select_dtypes(include='number').columns.tolist()
