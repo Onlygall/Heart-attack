@@ -148,6 +148,10 @@ if page == "📄 Deskripsi Data":
     url = 'https://raw.githubusercontent.com/Onlygall/Heart-attack/main/heart_attack_prediction_indonesia.csv'
     df = pd.read_csv(url)
     df['alcohol_consumption'] = df['alcohol_consumption'].fillna("None")
+    df.info()
+    df.describe
+
+    
     # ----------- Bagian 1: df.info() ----------
     st.subheader("🧾 Struktur DataFrame (df.info())")
     buffer = io.StringIO()
