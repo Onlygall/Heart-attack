@@ -144,16 +144,25 @@ if page == "📄 Deskripsi Data":
     - **Penguatan Layanan Primer**: Meningkatkan kapasitas dan kapabilitas layanan kesehatan primer, termasuk pembangunan **Puskesmas** dan penyediaan **obat esensial**.
     """)
 
-    st.markdown("### 📊 Visualisasi Data Heart attack di indonesia")
+    st.markdown("### 📊 Eksplorasi Data: Heart Attack Prediction Indonesia")
     url = 'https://raw.githubusercontent.com/Onlygall/Heart-attack/main/heart_attack_prediction_indonesia.csv'
     df = pd.read_csv(url)
     df['alcohol_consumption'] = df['alcohol_consumption'].fillna("None")
-    df.head(10)
-    df.info()
-    df.describe()
-    st.dataframe(df.head(10))
-    st.dataframe(df.info())
+    # ----------- Bagian 1: df.info() ----------
+    st.subheader("🧾 Struktur DataFrame (df.info())")
+    buffer = io.StringIO()
+    df.info(buf=buffer)
+    info_str = buffer.getvalue()
+    st.text(info_str)
+
+    # ----------- Bagian 2: df.describe() ----------
+    st.subheader("📐 Statistik Deskriptif (df.describe())")
     st.dataframe(df.describe())
+
+    # ----------- Bagian 3: Lihat data (df.head()) ----------
+    st.subheader("🔍 Pratinjau Data")
+    num_rows = st.slider("Berapa banyak baris ingin ditampilkan?", 5, 50, 10)
+    st.dataframe(df.head(num_rows))
 
 
 
