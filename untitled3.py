@@ -149,7 +149,13 @@ if page == "📄 Deskripsi Data":
     df = pd.read_csv(url)
     df['alcohol_consumption'] = df['alcohol_consumption'].fillna("None")
     df.head(10)
+    df.info()
+    df.describe()
     st.dataframe(df.head(10))
+    st.dataframe(df.info())
+    st.dataframe(df.describe())
+
+
 
 
 # ===============================
