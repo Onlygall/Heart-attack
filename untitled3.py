@@ -12,7 +12,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import plotly.express as px
 import io
-import seaborn
+import seaborn as sns
 
 # Sidebar Navigasi
 st.sidebar.title("Heart attack")
@@ -159,7 +159,7 @@ if page == "📄 Deskripsi Data":
     num_rows = st.slider("Berapa banyak baris ingin ditampilkan?", 5, 50, 10)
     st.dataframe(df.head(num_rows))
 
-    st.subheader("📐 Statistik Deskriptif (df.describe())")
+    st.subheader("📐 Statistik Deskriptif ")
     st.dataframe(df.describe())
 
     st.subheader("📈 Distribusi Fitur Numerik")
