@@ -150,7 +150,7 @@ if page == "📄 Deskripsi Data":
     df = pd.read_csv(url)
     df['alcohol_consumption'] = df['alcohol_consumption'].fillna("None")
     df.info()
-    df.describe
+    df.describe()
 
     
     # ----------- Bagian 1: df.info() ----------
