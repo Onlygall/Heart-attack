@@ -11,6 +11,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import plotly.express as px
+import io
 
 # Sidebar Navigasi
 st.sidebar.title("Heart attack")
