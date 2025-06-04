@@ -144,7 +144,10 @@ if page == "📄 Deskripsi Data":
     - **Penguatan Layanan Primer**: Meningkatkan kapasitas dan kapabilitas layanan kesehatan primer, termasuk pembangunan **Puskesmas** dan penyediaan **obat esensial**.
     """)
 
-
+    st.markdown("### 📊 Visualisasi Data Heart attack di indonesia")
+    url = 'https://raw.githubusercontent.com/Onlygall/Heart-attack/main/heart_attack_prediction_indonesia.csv'
+    df = pd.read_csv(url)
+    df.head(10)
 
 
 # ===============================
