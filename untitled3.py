@@ -147,6 +147,7 @@ if page == "📄 Deskripsi Data":
     st.markdown("### 📊 Visualisasi Data Heart attack di indonesia")
     url = 'https://raw.githubusercontent.com/Onlygall/Heart-attack/main/heart_attack_prediction_indonesia.csv'
     df = pd.read_csv(url)
+    df['alcohol_consumption'] = df['alcohol_consumption'].fillna("None")
     df.head(10)
     st.dataframe(df.head(10))
 
