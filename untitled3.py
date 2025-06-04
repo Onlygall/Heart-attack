@@ -148,6 +148,7 @@ if page == "📄 Deskripsi Data":
     url = 'https://raw.githubusercontent.com/Onlygall/Heart-attack/main/heart_attack_prediction_indonesia.csv'
     df = pd.read_csv(url)
     df.head(10)
+    st.dataframe(df.head(10))
 
 
 # ===============================
