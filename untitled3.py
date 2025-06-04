@@ -12,6 +12,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import plotly.express as px
 import io
+import seaborn
 
 # Sidebar Navigasi
 st.sidebar.title("Heart attack")
@@ -153,21 +154,41 @@ if page == "📄 Deskripsi Data":
     df.describe()
 
     
-    # ----------- Bagian 1: df.info() ----------
-    st.subheader("🧾 Struktur DataFrame (df.info())")
-    buffer = io.StringIO()
-    df.info(buf=buffer)
-    info_str = buffer.getvalue()
-    st.text(info_str)
+    st.markdown("### 📊 Eksplorasi Data: Heart Attack Prediction Indonesia")
+    st.write("Jumlah baris dan kolom:", df.shape)
+    st.dataframe(df.head(), height=200)
 
-    # ----------- Bagian 2: df.describe() ----------
-    st.subheader("📐 Statistik Deskriptif (df.describe())")
-    st.dataframe(df.describe())
+    if show_describe:
+        st.subheader("📊 Statistik Deskriptif")
+        st.dataframe(df.describe(include='all'), height=300)
 
-    # ----------- Bagian 3: Lihat data (df.head()) ----------
-    st.subheader("🔍 Pratinjau Data")
-    num_rows = st.slider("Berapa banyak baris ingin ditampilkan?", 5, 50, 10)
-    st.dataframe(df.head(num_rows))
+    if show_nulls:
+        st.subheader("❗ Missing Values")
+        st.dataframe(df.isnull().sum().to_frame(name="Jumlah"), height=200)
+
+    st.subheader("📈 Distribusi Fitur Numerik")
+    num_cols = df.select_dtypes(include='number').columns.tolist()
+
+    fig, axs = plt.subplots(len(num_cols) // 3 + 1, 3, figsize=(12, 4 * (len(num_cols) // 3 + 1)))
+    axs = axs.flatten()
+    for i, col in enumerate(num_cols):
+        sns.histplot(df[col], kde=True, ax=axs[i], color='skyblue')
+        axs[i].set_title(f"Distribusi {col}")
+    plt.tight_layout()
+    st.pyplot(fig)
+    
+    st.subheader("🧪 Deteksi Outlier dengan Boxplot")
+    fig2, ax2 = plt.subplots(figsize=(12, 5))
+    sns.boxplot(data=df[num_cols], ax=ax2)
+    ax2.set_title("Boxplot Fitur Numerik")
+    st.pyplot(fig2)
+    
+    st.subheader("🔗 Korelasi antar Variabel")
+    corr = df[num_cols].corr()
+    fig3, ax3 = plt.subplots(figsize=(12, 6))
+    sns.heatmap(corr, annot=True, cmap='coolwarm', fmt='.2f', ax=ax3)
+    ax3.set_title("Matriks Korelasi")
+    st.pyplot(fig3)
 
 
 
