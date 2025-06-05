@@ -157,7 +157,7 @@ if page == "📄 Deskripsi Data":
 
     st.write("Jumlah baris dan kolom:", df.shape)
     st.write("menampilkan 10 Data pertama")
-    st.dataframe(df.head(num_rows))
+    st.dataframe(df.head(10))
 
     st.subheader("📐 Statistik Deskriptif ")
     st.dataframe(df.describe())
