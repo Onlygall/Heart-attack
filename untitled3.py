@@ -180,7 +180,7 @@ if page == "📄 Deskripsi Data":
     """)
     
     st.subheader("🧪 Deteksi Outlier dengan Boxplot")
-    fig2, ax2 = plt.subplots(figsize=(12, 5))
+    fig2, ax2 = plt.subplots(figsize=(10, 4))
     sns.boxplot(data=df[num_cols], ax=ax2)
     ax2.set_title("Boxplot Fitur Numerik")
     st.pyplot(fig2)
@@ -197,7 +197,6 @@ if page == "📄 Deskripsi Data":
     sns.heatmap(corr, annot=True, cmap='coolwarm', fmt='.2f', ax=ax3)
     ax3.set_title("Matriks Korelasi")
     st.pyplot(fig3)
-    st.markdown("Heatmap ini menampilkan korelasi antar fitur numerik. Nilai +1 berarti hubungan searah kuat, -1 berlawanan arah kuat, dan 0 berarti tidak ada hubungan.")
 
 
 
