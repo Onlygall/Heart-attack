@@ -14,8 +14,17 @@ import plotly.express as px
 import io
 import seaborn as sns
 
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+
+# ===============================
 # Sidebar Navigasi
-st.sidebar.title("Heart attack")
+# ===============================
+st.sidebar.title("Heart Attack")
 page = st.sidebar.radio("Pilih Halaman", ["📄 Deskripsi Data", "🛠️ Modeling", "🔮 Prediksi"])
 
 # ===============================
@@ -25,17 +34,7 @@ if page == "📄 Deskripsi Data":
     st.title("🫀 Serangan Jantung di Indonesia")
     st.markdown("### Statistik, Penyebab, dan Upaya Pencegahan")
 
-    # Penjelasan Umum
-    st.markdown("""
-    Serangan jantung merupakan salah satu penyebab kematian utama di Indonesia. Penyakit ini terjadi ketika aliran darah ke bagian jantung tersumbat, biasanya karena penumpukan lemak, kolesterol, dan zat lain.
-    Menurut data Kementerian Kesehatan dan WHO, prevalensi penyakit jantung terus meningkat dari tahun ke tahun.
-
-    Berikut adalah data dan informasi terkait tren serangan jantung di Indonesia.
-    """)
-
-    # ===============================
-    # Data
-    # ===============================
+    # Data statis
     prevalensi_data = pd.DataFrame({
         "Tahun": [2013, 2018, 2023],
         "Prevalensi (%)": [0.5, 1.5, 0.85]
@@ -64,60 +63,45 @@ if page == "📄 Deskripsi Data":
         "Prevalensi (%)": [1.67, 1.65, 1.56, 1.18, 1.08, 1.0, 0.95, 0.91, 0.88, 0.87]
     })
 
-    # ===============================
-    # Visualisasi
-    # ===============================
+    # Visualisasi Prevalensi
     st.subheader("📈 Prevalensi Penyakit Jantung per Tahun")
     st.markdown("""
-    - **2013**: Prevalensi penyakit jantung sebesar **0,5%** dari populasi.
-    - **2018**: Meningkat menjadi **1,5%**, setara dengan lebih dari **2,78 juta** penderita.
-    - **2023**: Berdasarkan Survei Kesehatan Indonesia, prevalensi mencapai **0,85%**, dengan jumlah penderita sekitar **2,29 juta orang** dari total **212,6 juta** penduduk berusia 15 tahun ke atas.
+    - **2013**: 0,5% dari populasi
+    - **2018**: 1,5% (~2,78 juta)
+    - **2023**: 0,85% (~2,29 juta dari 212,6 juta)
     """)
-
     fig1, ax1 = plt.subplots(figsize=(5, 2.5))
     ax1.plot(prevalensi_data["Tahun"], prevalensi_data["Prevalensi (%)"], marker='o', color='blue')
     ax1.set_ylabel("Prevalensi (%)")
     ax1.grid(True)
     st.pyplot(fig1)
 
-
+    # Visualisasi Biaya
     st.subheader("💰 Biaya Penanganan Penyakit Jantung oleh BPJS")
-    st.markdown("""
-    - **2014**: BPJS Kesehatan mengeluarkan dana sebesar Rp4,4 triliun untuk penanganan penyakit jantung.
-    - **2016**: Meningkat menjadi Rp7,4 triliun.
-    - **2018**: Naik lagi menjadi Rp9,3 triliun.
-    - **2023**: Total pembiayaan untuk penyakit jantung dan stroke mencapai Rp22,8 triliun, menjadikannya beban biaya terbesar dalam program Jaminan Kesehatan Nasional.
-    """)
     fig2, ax2 = plt.subplots(figsize=(5, 2.5))
     ax2.plot(biaya_data["Tahun"], biaya_data["Biaya (Triliun Rp)"], marker='s', color='red')
     ax2.set_ylabel("Biaya (Triliun Rp)")
     ax2.grid(True)
     st.pyplot(fig2)
 
+    # Visualisasi Usia Diagnosis
     st.subheader("👶 Usia Rata-rata Diagnosis Pertama")
-    st.markdown("""
-    Rata-rata usia diagnosis pertama penyakit jantung menurun dari 48,5 tahun pada 2013 menjadi 43,2 tahun pada 2023.
-    """)
     fig3, ax3 = plt.subplots(figsize=(5, 2.5))
     ax3.bar(usia_diagnosis_data["Tahun"], usia_diagnosis_data["Usia Rata-rata (Tahun)"], color='green')
     ax3.set_ylabel("Usia (Tahun)")
     ax3.grid(True)
     st.pyplot(fig3)
 
+    # Visualisasi Kenaikan Kasus
     st.subheader("📊 Kenaikan Kasus Berdasarkan Kelompok Usia")
-    st.markdown("""
-    Kasus penyakit jantung pada usia di bawah 45 tahun meningkat sebesar 66% antara 2020–2023, lebih cepat dibandingkan kelompok usia di atas 46 tahun yang meningkat 52%.
-    """)
     fig4, ax4 = plt.subplots(figsize=(5, 2.5))
     ax4.bar(kenaikan_usia_data["Kelompok Usia"], kenaikan_usia_data["Kenaikan Kasus (%)"], color='purple')
     ax4.set_ylabel("Kenaikan Kasus (%)")
     ax4.grid(True)
     st.pyplot(fig4)
 
+    # Visualisasi Provinsi
     st.subheader("🏥 10 Provinsi dengan Prevalensi Tertinggi (2023)")
-    st.markdown("""
-    Berdasarkan data Survei Kesehatan Indonesia 2023, berikut adalah 10 provinsi dengan prevalensi penyakit jantung tertinggi:
-    """)
     fig5, ax5 = plt.subplots(figsize=(5, 2.5))
     ax5.barh(provinsi_data["Provinsi"], provinsi_data["Prevalensi (%)"], color='orange')
     ax5.set_xlabel("Prevalensi (%)")
@@ -126,79 +110,65 @@ if page == "📄 Deskripsi Data":
     st.pyplot(fig5)
 
     st.markdown("---")
-    st.caption("Data bersumber dari Kemenkes, BPJS Kesehatan, dan laporan riset kesehatan dasar (Riskesdas).")
+    st.caption("Data bersumber dari Kemenkes, BPJS Kesehatan, dan Riskesdas.")
 
+    # Faktor Risiko
     st.markdown("### ⚠️ Faktor Risiko Utama")
-    st.markdown("Peningkatan kasus penyakit jantung di Indonesia dipengaruhi oleh beberapa faktor risiko, antara lain:")
-
     st.markdown("""
-    - **Merokok**: Prevalensi merokok di kalangan pria dewasa mencapai **74,3%**, dan **6,5%** di kalangan wanita.
-    - **Obesitas**: Prevalensi obesitas meningkat dari **10,5%** pada tahun **2013** menjadi **21,8%** pada tahun **2018**.
-    - **Gaya Hidup Tidak Sehat**: Pola makan tinggi lemak, gula, dan garam, serta kurangnya aktivitas fisik.
-    - **Stres dan Tekanan Kerja**: Banyak individu usia **30–40 tahun** mengalami tekanan tinggi dari pekerjaan dan tanggung jawab keluarga.
+    - **Merokok**: Pria 74,3%, Wanita 6,5%
+    - **Obesitas**: 10,5% (2013) → 21,8% (2018)
+    - **Gaya Hidup Tidak Sehat**
+    - **Stres dan Tekanan Kerja**
     """)
 
+    # Pencegahan
     st.markdown("### 🩺 Upaya Pencegahan dan Penanggulangan")
-    st.markdown("Kementerian Kesehatan RI telah melakukan berbagai upaya untuk menanggulangi peningkatan penyakit jantung, antara lain:")
     st.markdown("*Sumber: [kemkes.go.id](https://kemkes.go.id)*")
-
     st.markdown("""
-    - **Edukasi Masyarakat**: Meningkatkan kesadaran tentang risiko penyakit jantung dan pentingnya gaya hidup sehat melalui program edukasi di sekolah dan komunitas.
-    - **Promosi Aktivitas Fisik**: Mendorong masyarakat untuk berolahraga secara teratur.
-    - **Penguatan Layanan Primer**: Meningkatkan kapasitas dan kapabilitas layanan kesehatan primer, termasuk pembangunan **Puskesmas** dan penyediaan **obat esensial**.
+    - **Edukasi Masyarakat**
+    - **Promosi Aktivitas Fisik**
+    - **Penguatan Layanan Primer**
     """)
 
+    # Eksplorasi Data
     st.markdown("### 📊 Eksplorasi Data: Heart Attack Prediction Indonesia")
     url = 'https://raw.githubusercontent.com/Onlygall/Heart-attack/main/heart_attack_prediction_indonesia.csv'
     df = pd.read_csv(url)
     df['alcohol_consumption'] = df['alcohol_consumption'].fillna("None")
-    df.info()
-    df.describe()
-
-    
 
     st.write("Jumlah baris dan kolom:", df.shape)
-    st.write("menampilkan 10 Data pertama")
+    st.write("Menampilkan 10 Data Pertama")
     st.dataframe(df.head(10))
 
-    st.subheader("📐 Statistik Deskriptif ")
+    st.subheader("📐 Statistik Deskriptif")
     st.dataframe(df.describe())
 
+    # Distribusi Fitur Numerik
     st.subheader("📈 Distribusi Fitur Numerik")
     num_cols = df.select_dtypes(include='number').columns.tolist()
-
-
     fig, axs = plt.subplots(len(num_cols) // 3 + 1, 3, figsize=(12, 4 * (len(num_cols) // 3 + 1)))
     axs = axs.flatten()
 
     for i, col in enumerate(num_cols):
         sns.histplot(df[col], kde=True, ax=axs[i], color='skyblue')
         axs[i].set_title(f"Distribusi {col}")
-
     for j in range(i + 1, len(axs)):
         fig.delaxes(axs[j])
-
     plt.tight_layout()
     st.pyplot(fig)
 
-    
     st.markdown("""
-    - Menampilkan distribusi data dalam bentuk histogram + kurva KDE.
-    - Memudahkan untuk melihat apakah distribusi data normal, miring ke kanan/kiri, atau multimodal.
+    - Histogram + kurva KDE untuk deteksi pola distribusi data.
     """)
-    
+
+    # Boxplot Outlier
     st.subheader("🧪 Deteksi Outlier dengan Boxplot")
     fig2, ax2 = plt.subplots(figsize=(12, 5))
     sns.boxplot(data=df[num_cols], ax=ax2)
     ax2.set_title("Boxplot Fitur Numerik")
     st.pyplot(fig2)
 
-    st.markdown("""
-    - Visualisasi persebaran data berdasarkan kuartil dan IQR.
-    - Outlier ditandai dengan titik-titik di luar “garis whisker”.
-    - **Tujuan**: Mengidentifikasi nilai ekstrem yang bisa memengaruhi model prediktif.
-    """)
-    
+    # Korelasi
     st.subheader("🔗 Korelasi antar Variabel")
     corr = df[num_cols].corr()
     fig3, ax3 = plt.subplots(figsize=(12, 6))
@@ -206,43 +176,44 @@ if page == "📄 Deskripsi Data":
     ax3.set_title("Matriks Korelasi")
     st.pyplot(fig3)
 
-
-
-
 # ===============================
 # Halaman: Modeling
 # ===============================
 elif page == "🛠️ Modeling":
     st.title("🛠️ Modeling Data")
-    st.markdown("Konten modeling akan ditambahkan di sini.")
-    target_col = "heart_attack_risk"
-    if target_col in df.columns:
-        st.markdown(f"Menggunakan kolom **{target_col}** sebagai target untuk klasifikasi.")
 
-        # Pra-pemrosesan
+    url = 'https://raw.githubusercontent.com/Onlygall/Heart-attack/main/heart_attack_prediction_indonesia.csv'
+    df = pd.read_csv(url)
+    df['alcohol_consumption'] = df['alcohol_consumption'].fillna("None")
+
+    target_col = "heart_attack_risk"
+
+    if target_col in df.columns:
+        st.markdown(f"Menggunakan kolom **{target_col}** sebagai target.")
+
         X = df.drop(columns=[target_col])
         y = df[target_col]
 
-        # Encode kategorikal
+        # Encode
         X = pd.get_dummies(X, drop_first=True)
 
-        # Split data
+        # Split
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-        # Model Random Forest
+        # Train Model
         model = RandomForestClassifier(random_state=42)
         model.fit(X_train, y_train)
 
-        # Feature importance
+        # Feature Importance
         st.subheader("📌 Pentingnya Fitur")
         importances = pd.Series(model.feature_importances_, index=X.columns)
         top_features = importances.sort_values(ascending=False).head(10)
         st.bar_chart(top_features)
 
-    st.markdown("Fitur-fitur di atas merupakan variabel paling berpengaruh terhadap risiko serangan jantung berdasarkan model Random Forest.")
-    else:
-         st.warning("Kolom 'heart_attack_risk' tidak ditemukan. Pastikan target tersedia untuk modeling.")
+        st.markdown("Fitur di atas adalah yang paling berkontribusi terhadap prediksi risiko serangan jantung.")
 
+    else:
+        st.warning("Kolom 'heart_attack_risk' tidak ditemukan.")
 
 # ===============================
 # Halaman: Prediksi
@@ -250,3 +221,4 @@ elif page == "🛠️ Modeling":
 elif page == "🔮 Prediksi":
     st.title("🔮 Prediksi Heart Attack")
     st.markdown("Halaman prediksi akan dikembangkan lebih lanjut.")
+
