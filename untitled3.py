@@ -79,6 +79,13 @@ if page == "📄 Deskripsi Data":
     ax1.grid(True)
     st.pyplot(fig1)
 
+    fig1, ax1 = plt.subplots(figsize=(6, 3))  # Ukuran lebih kecil dari default
+    ax1.plot(prevalensi_data["Tahun"], prevalensi_data["Prevalensi (%)"], marker='o', color='blue')
+    ax1.set_ylabel("Prevalensi (%)")
+    ax1.grid(True)
+    st.pyplot(fig1)
+
+
     st.subheader("💰 Biaya Penanganan Penyakit Jantung oleh BPJS")
     st.markdown("""
     - **2014**: BPJS Kesehatan mengeluarkan dana sebesar Rp4,4 triliun untuk penanganan penyakit jantung.
