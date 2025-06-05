@@ -165,6 +165,7 @@ if page == "📄 Deskripsi Data":
     st.subheader("📈 Distribusi Fitur Numerik")
     num_cols = df.select_dtypes(include='number').columns.tolist()
 
+
     fig, axs = plt.subplots(len(num_cols) // 3 + 1, 3, figsize=(12, 4 * (len(num_cols) // 3 + 1)))
     axs = axs.flatten()
     for i, col in enumerate(num_cols):
@@ -173,11 +174,22 @@ if page == "📄 Deskripsi Data":
     plt.tight_layout()
     st.pyplot(fig)
     
+    st.markdown("""
+    - Menampilkan distribusi data dalam bentuk histogram + kurva KDE.
+    - Memudahkan untuk melihat apakah distribusi data normal, miring ke kanan/kiri, atau multimodal.
+    """)
+    
     st.subheader("🧪 Deteksi Outlier dengan Boxplot")
     fig2, ax2 = plt.subplots(figsize=(12, 5))
     sns.boxplot(data=df[num_cols], ax=ax2)
     ax2.set_title("Boxplot Fitur Numerik")
     st.pyplot(fig2)
+
+    st.markdown("""
+    - Visualisasi persebaran data berdasarkan kuartil dan IQR.
+    - Outlier ditandai dengan titik-titik di luar “garis whisker”.
+    - **Tujuan**: Mengidentifikasi nilai ekstrem yang bisa memengaruhi model prediktif.
+    """)
     
     st.subheader("🔗 Korelasi antar Variabel")
     corr = df[num_cols].corr()
@@ -185,6 +197,7 @@ if page == "📄 Deskripsi Data":
     sns.heatmap(corr, annot=True, cmap='coolwarm', fmt='.2f', ax=ax3)
     ax3.set_title("Matriks Korelasi")
     st.pyplot(fig3)
+    st.markdown("Heatmap ini menampilkan korelasi antar fitur numerik. Nilai +1 berarti hubungan searah kuat, -1 berlawanan arah kuat, dan 0 berarti tidak ada hubungan.")
 
 
 
