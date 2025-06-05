@@ -79,7 +79,7 @@ if page == "📄 Deskripsi Data":
     ax1.grid(True)
     st.pyplot(fig1)
 
-    fig1, ax1 = plt.subplots(figsize=(6, 3))  # Ukuran lebih kecil dari default
+    fig1, ax1 = plt.subplots(figsize=(5, 2.5))
     ax1.plot(prevalensi_data["Tahun"], prevalensi_data["Prevalensi (%)"], marker='o', color='blue')
     ax1.set_ylabel("Prevalensi (%)")
     ax1.grid(True)
