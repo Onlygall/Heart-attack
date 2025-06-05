@@ -88,7 +88,7 @@ if page == "📄 Deskripsi Data":
     - **2018**: Naik lagi menjadi Rp9,3 triliun.
     - **2023**: Total pembiayaan untuk penyakit jantung dan stroke mencapai Rp22,8 triliun, menjadikannya beban biaya terbesar dalam program Jaminan Kesehatan Nasional.
     """)
-    fig2, ax2 = plt.subplots()
+    fig2, ax2 = plt.subplots(figsize=(5, 2.5))
     ax2.plot(biaya_data["Tahun"], biaya_data["Biaya (Triliun Rp)"], marker='s', color='red')
     ax2.set_ylabel("Biaya (Triliun Rp)")
     ax2.grid(True)
@@ -98,7 +98,7 @@ if page == "📄 Deskripsi Data":
     st.markdown("""
     Rata-rata usia diagnosis pertama penyakit jantung menurun dari 48,5 tahun pada 2013 menjadi 43,2 tahun pada 2023.
     """)
-    fig3, ax3 = plt.subplots()
+    fig3, ax3 = plt.subplots(figsize=(5, 2.5))
     ax3.bar(usia_diagnosis_data["Tahun"], usia_diagnosis_data["Usia Rata-rata (Tahun)"], color='green')
     ax3.set_ylabel("Usia (Tahun)")
     ax3.grid(True)
@@ -108,7 +108,7 @@ if page == "📄 Deskripsi Data":
     st.markdown("""
     Kasus penyakit jantung pada usia di bawah 45 tahun meningkat sebesar 66% antara 2020–2023, lebih cepat dibandingkan kelompok usia di atas 46 tahun yang meningkat 52%.
     """)
-    fig4, ax4 = plt.subplots()
+    fig4, ax4 = plt.subplots(figsize=(5, 2.5))
     ax4.bar(kenaikan_usia_data["Kelompok Usia"], kenaikan_usia_data["Kenaikan Kasus (%)"], color='purple')
     ax4.set_ylabel("Kenaikan Kasus (%)")
     ax4.grid(True)
@@ -118,7 +118,7 @@ if page == "📄 Deskripsi Data":
     st.markdown("""
     Berdasarkan data Survei Kesehatan Indonesia 2023, berikut adalah 10 provinsi dengan prevalensi penyakit jantung tertinggi:
     """)
-    fig5, ax5 = plt.subplots()
+    fig5, ax5 = plt.subplots(figsize=(5, 2.5))
     ax5.barh(provinsi_data["Provinsi"], provinsi_data["Prevalensi (%)"], color='orange')
     ax5.set_xlabel("Prevalensi (%)")
     ax5.invert_yaxis()
