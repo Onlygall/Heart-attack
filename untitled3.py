@@ -73,11 +73,6 @@ if page == "📄 Deskripsi Data":
     - **2018**: Meningkat menjadi **1,5%**, setara dengan lebih dari **2,78 juta** penderita.
     - **2023**: Berdasarkan Survei Kesehatan Indonesia, prevalensi mencapai **0,85%**, dengan jumlah penderita sekitar **2,29 juta orang** dari total **212,6 juta** penduduk berusia 15 tahun ke atas.
     """)
-    fig1, ax1 = plt.subplots()
-    ax1.plot(prevalensi_data["Tahun"], prevalensi_data["Prevalensi (%)"], marker='o', color='blue')
-    ax1.set_ylabel("Prevalensi (%)")
-    ax1.grid(True)
-    st.pyplot(fig1)
 
     fig1, ax1 = plt.subplots(figsize=(5, 2.5))
     ax1.plot(prevalensi_data["Tahun"], prevalensi_data["Prevalensi (%)"], marker='o', color='blue')
