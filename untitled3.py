@@ -215,6 +215,34 @@ if page == "📄 Deskripsi Data":
 elif page == "🛠️ Modeling":
     st.title("🛠️ Modeling Data")
     st.markdown("Konten modeling akan ditambahkan di sini.")
+    target_col = "heart_attack_risk"
+    if target_col in df.columns:
+        st.markdown(f"Menggunakan kolom **{target_col}** sebagai target untuk klasifikasi.")
+
+        # Pra-pemrosesan
+        X = df.drop(columns=[target_col])
+        y = df[target_col]
+
+        # Encode kategorikal
+        X = pd.get_dummies(X, drop_first=True)
+
+        # Split data
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+        # Model Random Forest
+        model = RandomForestClassifier(random_state=42)
+        model.fit(X_train, y_train)
+
+        # Feature importance
+        st.subheader("📌 Pentingnya Fitur")
+        importances = pd.Series(model.feature_importances_, index=X.columns)
+        top_features = importances.sort_values(ascending=False).head(10)
+        st.bar_chart(top_features)
+
+    st.markdown("Fitur-fitur di atas merupakan variabel paling berpengaruh terhadap risiko serangan jantung berdasarkan model Random Forest.")
+    else:
+         st.warning("Kolom 'heart_attack_risk' tidak ditemukan. Pastikan target tersedia untuk modeling.")
+
 
 # ===============================
 # Halaman: Prediksi
