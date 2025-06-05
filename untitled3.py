@@ -180,7 +180,7 @@ if page == "📄 Deskripsi Data":
     """)
     
     st.subheader("🧪 Deteksi Outlier dengan Boxplot")
-    fig2, ax2 = plt.subplots(figsize=(10, 4))
+    fig2, ax2 = plt.subplots(figsize=(12, 5))
     sns.boxplot(data=df[num_cols], ax=ax2)
     ax2.set_title("Boxplot Fitur Numerik")
     st.pyplot(fig2)
