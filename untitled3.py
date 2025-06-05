@@ -170,11 +170,17 @@ if page == "📄 Deskripsi Data":
 
     fig, axs = plt.subplots(len(num_cols) // 3 + 1, 3, figsize=(12, 4 * (len(num_cols) // 3 + 1)))
     axs = axs.flatten()
+
     for i, col in enumerate(num_cols):
         sns.histplot(df[col], kde=True, ax=axs[i], color='skyblue')
         axs[i].set_title(f"Distribusi {col}")
+
+    for j in range(i + 1, len(axs)):
+        fig.delaxes(axs[j])
+
     plt.tight_layout()
     st.pyplot(fig)
+
     
     st.markdown("""
     - Menampilkan distribusi data dalam bentuk histogram + kurva KDE.
