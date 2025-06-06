@@ -186,7 +186,7 @@ elif page == "🛠️ Modeling":
     df = pd.read_csv(url)
     df['alcohol_consumption'] = df['alcohol_consumption'].fillna("None")
 
-    target_col = "heart_attack_risk"
+    target_col = "heart_attack"
 
     if target_col in df.columns:
         st.markdown(f"Menggunakan kolom **{target_col}** sebagai target.")
