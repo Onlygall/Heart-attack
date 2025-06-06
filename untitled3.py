@@ -211,6 +211,10 @@ elif page == "🛠️ Modeling":
         st.bar_chart(top_features)
 
         st.markdown("Fitur di atas adalah yang paling berkontribusi terhadap prediksi risiko serangan jantung.")
+        st.subheader("📋 Fitur yang Digunakan dalam Modeling")
+        st.write(f"Ada total {X.shape[1]} fitur yang digunakan.")
+        st.dataframe(X.columns.to_frame(name='Nama Fitur'))
+
 
     else:
         st.warning("Kolom 'heart_attack_risk' tidak ditemukan.")
