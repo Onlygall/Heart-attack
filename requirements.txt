@@ -4,4 +4,6 @@ plotly
 seaborn
 scikit-learn
 joblib
-pickle
+xgboost
+lightgbm
+
