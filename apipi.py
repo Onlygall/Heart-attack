@@ -13,6 +13,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import joblib
+from joblib import load
 import pickle
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
@@ -161,8 +162,8 @@ elif page == "🛠️ Modeling":
     st.title("🛠️ Modeling Data")
     st.markdown("### Evaluasi Model: Heart Attack Prediction")
 
-    with open("heart_attack_pipeline_model.pkl", "rb") as file:
-        model = pickle.load(file)
+
+    model = load("heart_attack_prediction_pipeline.joblib")
 
     X_test = pd.read_csv("X_test.csv")
     y_test = pd.read_csv("y_test.csv")
@@ -219,8 +220,7 @@ elif page == "🔮 Prediksi":
     st.title("🔮 Prediksi Heart Attack")
     st.markdown("Masukkan data pasien untuk prediksi risiko serangan jantung.")
 
-    with open("heart_attack_pipeline_model.pkl", "rb") as file:
-        model = pickle.load(file)
+    model = load("heart_attack_prediction_pipeline.joblib")
 
     # Input Form
     age = st.number_input("Umur", min_value=1, max_value=120, value=30)
