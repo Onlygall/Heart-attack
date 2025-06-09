@@ -426,7 +426,7 @@ elif page == "🛠️ Modeling":
         "dietary_habits", "sleep_hours", "obesity", "stress_level", "air_pollution_exposure"
     ]
 
-    df_lifestyle = df_all[lifestyle_features].copy()
+    df_lifestyle = df[lifestyle_features].copy()
     cat_cols = ["smoking_status", "alcohol_consumption", "physical_activity", "dietary_habits", "stress_level", "air_pollution_exposure"]
     for col in cat_cols:
         df_lifestyle[col] = LabelEncoder().fit_transform(df_lifestyle[col])
