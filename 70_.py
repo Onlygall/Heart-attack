@@ -25,12 +25,11 @@ from sklearn.metrics import (
     roc_curve
 )
 
-@st.cache_data
-def load_data():
-    url = 'https://raw.githubusercontent.com/Onlygall/Heart-attack/main/heart_attack_prediction_indonesia.csv'
-    data = pd.read_csv(url)
-    data['alcohol_consumption'] = data['alcohol_consumption'].fillna("None")
-    return data
+
+url = 'https://raw.githubusercontent.com/Onlygall/Heart-attack/main/heart_attack_prediction_indonesia.csv'
+data = pd.read_csv(url)
+data['alcohol_consumption'] = data['alcohol_consumption'].fillna("None")
+   
 
 
 # Daftar halaman
@@ -221,7 +220,6 @@ elif page == "📊 Tentang Dataset":
     st.markdown("---")
     st.caption("*Sumber: https://www.kaggle.com/datasets/ankushpanday2/heart-attack-prediction-in-indonesia*")
 
-    data = load_data()
 
     st.subheader("🔹 10 Data Teratas")
     st.write("Jumlah baris dan kolom:", data.shape)
@@ -252,7 +250,7 @@ elif page == "📊 Tentang Dataset":
     # Boxplot Outlier
     st.subheader("🧪 Deteksi Outlier dengan Boxplot")
     fig2, ax2 = plt.subplots(figsize=(12, 5))
-    sns.boxplot(datat=data[num_cols], ax=ax2)
+    sns.boxplot(data = data[num_cols], ax=ax2)
     ax2.set_title("Boxplot Fitur Numerik")
     st.pyplot(fig2)
 
