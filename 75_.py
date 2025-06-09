@@ -324,7 +324,7 @@ elif page == "🛠️ Modeling":
     report_df = pd.DataFrame(classification_report(y_test, y_pred, output_dict=True)).transpose()
     st.dataframe(report_df.style.format("{:.2f}"))
 
-    st.metric("**📌 Confusion Matrix**")
+    st.write("**📌 Confusion Matrix**")
     cm = confusion_matrix(y_test, y_pred)
     fig, ax = plt.subplots()
     sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=[0, 1], yticklabels=[0, 1])
