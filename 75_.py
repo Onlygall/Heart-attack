@@ -352,11 +352,11 @@ elif page == "🛠️ Modeling":
     - **ROC Curve** menunjukkan trade-off antara *True Positive Rate* dan *False Positive Rate*.""")
 
     # Feature Importance
-    model = pipeline.named_steps['clf']
-    importances = model.feature_importances_
+    xgb_model = model.named_steps['clf']
+    importances = xgb_model.feature_importances_
     importance_df = pd.DataFrame({
-    'Feature': X.columns,
-    'Importance': importances
+        'Feature': X_test.columns,
+        'Importance': importances
     }).sort_values(by='Importance', ascending=False)
 
     st.subheader("🔥 Feature Importance")
@@ -364,6 +364,7 @@ elif page == "🛠️ Modeling":
     sns.barplot(x='Importance', y='Feature', data=importance_df, palette='viridis', ax=ax_imp)
     ax_imp.set_title("Feature Importance (XGBoost)")
     st.pyplot(fig_imp)
+
 
     # ===============================
     # Klastering Risiko Serangan Jantung
