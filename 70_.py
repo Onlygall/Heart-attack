@@ -311,18 +311,12 @@ elif page == "🛠️ Modeling":
     ax2.legend()
     st.pyplot(fig2)
 
-    st.subheader("📌 Feature Importance")
-    try:
-        importances = model.named_steps["classifier"].feature_importances_
-        features = model.named_steps["preprocessor"].get_feature_names_out()
-        imp_df = pd.DataFrame({"Feature": features, "Importance": importances}).sort_values("Importance", ascending=False)
-
-        fig3, ax3 = plt.subplots()
-        sns.barplot(x="Importance", y="Feature", data=imp_df.head(10), ax=ax3)
-        st.pyplot(fig3)
-    except:
-        st.info("Feature importance tidak tersedia atau model tidak mendukung.")
-
+    st.subheader("🔥 Feature Importance")
+    fig_imp, ax_imp = plt.subplots(figsize=(8, 6))
+    sns.barplot(x='Importance', y='Feature', data=importance_df, palette='viridis', ax=ax_imp)
+    ax_imp.set_title("Feature Importance (XGBoost)")
+    st.pyplot(fig_imp)
+    
 # ===============================
 # Halaman: Prediksi
 # ===============================
