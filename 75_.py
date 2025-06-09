@@ -288,7 +288,7 @@ elif page == "🛠️ Modeling":
     """)
 
     st.markdown("""
-    ## 🧩 Fitur yang Digunakan
+    # 🧩 Fitur yang Digunakan
     Model menggunakan **24 fitur**:
     - **Demografis & Gaya Hidup**: `age`, `gender`, `smoking_status`, `alcohol_consumption`, `physical_activity`, `dietary_habits`, `stress_level`, `sleep_hours`, `air_pollution_exposure`
     - **Medis & Pengukuran**: `cholesterol_level`, `cholesterol_ldl`, `cholesterol_hdl`, `triglycerides`, `blood_pressure_systolic`, `blood_pressure_diastolic`, `waist_circumference`, `fasting_blood_sugar`, `EKG_results`
@@ -296,14 +296,14 @@ elif page == "🛠️ Modeling":
     """)
 
     st.markdown("""
-    ## 🔄 Preprocessing
+    # 🔄 Preprocessing
     - **Encoding**: LabelEncoder digunakan untuk fitur kategorikal.
     - **Scaling**: StandardScaler digunakan untuk normalisasi.
     - **Split Data**: 70% data latih, 30% data uji dengan stratifikasi.
     """)
 
     st.markdown("""
-    ## 🤖 Model XGBoost
+    # 🤖 Model XGBoost
     Model yang digunakan adalah `XGBClassifier` dengan parameter berikut:
     - `n_estimators=300`, `max_depth=6`, `learning_rate=0.1`
     - `eval_metric='logloss'`, `use_label_encoder=False`, `random_state=123`
