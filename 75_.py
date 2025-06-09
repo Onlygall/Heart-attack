@@ -224,7 +224,6 @@ elif page == "📊 Tentang Dataset":
     st.markdown("---")
     st.caption("*Sumber: https://www.kaggle.com/datasets/ankushpanday2/heart-attack-prediction-in-indonesia*")
 
-    data = load_data()
 
     st.subheader("🔹 10 Data Teratas")
     st.write("Jumlah baris dan kolom:", data.shape)
