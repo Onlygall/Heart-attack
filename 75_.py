@@ -371,19 +371,51 @@ elif page == "🛠️ Modeling":
     # ===============================
     st.markdown("## 📌 Klastering Risiko Serangan Jantung")
 
-    # Feature Importance
-    xgb_model = model.named_steps['clf']
-    importances = xgb_model.feature_importances_
-    importance_df = pd.DataFrame({
-        'Feature': X_test.columns,
-        'Importance': importances
-    }).sort_values(by='Importance', ascending=False)
+    df_all = pd.read_csv("https://raw.githubusercontent.com/Onlygall/Heart-attack/main/heart_attack_prediction_indonesia.csv")
+    df_all['alcohol_consumption'] = df_all['alcohol_consumption'].fillna("None")
 
-    st.subheader("🔥 Feature Importance")
-    fig_imp, ax_imp = plt.subplots(figsize=(8, 6))
-    sns.barplot(x='Importance', y='Feature', data=importance_df, palette='viridis', ax=ax_imp)
-    ax_imp.set_title("Feature Importance (XGBoost)")
-    st.pyplot(fig_imp)
+    selected_features = X_test.columns.tolist()
+    X_cluster = df_all[selected_features].copy()
+
+
+    numerical_cols = X_cluster.select_dtypes(include=np.number).columns.tolist()
+    categorical_cols = X_cluster.select_dtypes(include='object').columns.tolist()
+
+    preprocessor_cluster = ColumnTransformer([
+        ("num", StandardScaler(), numerical_cols),
+        ("cat", OneHotEncoder(handle_unknown='ignore'), categorical_cols)
+    ])
+
+    X_cluster_processed = preprocessor_cluster.fit_transform(X_cluster)
+
+    kmeans = KMeans(n_clusters=3, random_state=123, n_init=10)
+    cluster_labels = kmeans.fit_predict(X_cluster_processed)
+
+    df_clustered = df_all[selected_features].copy()
+    df_clustered["cluster"] = cluster_labels
+    df_clustered['heart_attack'] = df_all['heart_attack']
+
+    risk_summary = df_clustered.groupby("cluster")["heart_attack"].agg(["count", "sum", "mean"])
+    risk_summary["risk_label"] = pd.qcut(risk_summary["mean"], q=3, labels=["Rendah", "Sedang", "Tinggi"])
+
+    cluster_risk_map = risk_summary["risk_label"].to_dict()
+    df_clustered["risk_level"] = df_clustered["cluster"].map(cluster_risk_map)
+
+    st.markdown("### 📈 Distribusi Risiko per Klaster")
+    st.dataframe(risk_summary.style.format({"mean": "{:.2%}"}))
+
+    st.markdown("### 🧭 Visualisasi Klaster (PCA)")
+    pca = PCA(n_components=2)
+    X_pca = pca.fit_transform(X_cluster_processed)
+
+    fig_pca, ax_pca = plt.subplots(figsize=(8, 6))
+    sns.scatterplot(x=X_pca[:, 0], y=X_pca[:, 1],
+                    hue=df_clustered["risk_level"],
+                    palette={"Rendah": "green", "Sedang": "orange", "Tinggi": "red"}, ax=ax_pca)
+    ax_pca.set_title("Klaster Risiko Serangan Jantung (KMeans)")
+    ax_pca.set_xlabel("PCA 1")
+    ax_pca.set_ylabel("PCA 2")
+    st.pyplot(fig_pca)
 
 
 # ===============================
