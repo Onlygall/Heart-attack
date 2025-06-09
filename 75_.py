@@ -254,7 +254,7 @@ elif page == "📊 Tentang Dataset":
     # Boxplot Outlier
     st.subheader("🧪 Deteksi Outlier dengan Boxplot")
     fig2, ax2 = plt.subplots(figsize=(12, 5))
-    sns.boxplot(dt=data[num_cols], ax=ax2)
+    sns.boxplot(data=data[num_cols], ax=ax2)
     ax2.set_title("Boxplot Fitur Numerik")
     st.pyplot(fig2)
 
@@ -274,8 +274,6 @@ elif page == "📊 Tentang Dataset":
 # ===============================
 elif page == "🛠️ Modeling":
     st.title("🛠️ Modeling Data")
-    st.write("Halaman ini digunakan untuk melatih dan mengevaluasi model prediksi serangan jantung.")
-    st.markdown("### Evaluasi Model: Heart Attack Prediction")
 
     model = load("heart_attack_prediction_pipeline.joblib")
 
@@ -285,9 +283,8 @@ elif page == "🛠️ Modeling":
     y_pred = model.predict(X_test)
     y_proba = model.predict_proba(X_test)[:, 1]
 
-    st.markdown("""
-    ## 🧠 Tujuan Model
-    Model ini digunakan untuk **memprediksi kemungkinan seseorang mengalami serangan jantung** berdasarkan berbagai faktor risiko medis dan gaya hidup.
+    st.write("""
+    Model ini digunakan untuk **memprediksi kemungkinan seseorang mengalami serangan jantung** berdasarkan berbagai faktor risiko medis dan gaya hidup. Juga mengevaluasi model prediksi serangan jantung."
     """)
 
     st.markdown("""
