@@ -402,7 +402,7 @@ elif page == "🛠️ Modeling":
     df_clustered["risk_level"] = df_clustered["cluster"].map(cluster_risk_map)
 
 
-    st.markdown("**🧭 Visualisasi Klaster (PCA)**")
+    st.markdown("Distribusi Risiko per Klaster")
     pca = PCA(n_components=2)
     X_pca = pca.fit_transform(X_cluster_processed)
 
@@ -414,8 +414,6 @@ elif page == "🛠️ Modeling":
     ax_pca.set_xlabel("PCA 1")
     ax_pca.set_ylabel("PCA 2")
     st.pyplot(fig_pca)
-    
-    st.markdown("**📈 Distribusi Risiko per Klaster**")
     st.dataframe(risk_summary.style.format({"mean": "{:.2%}"}))
 
 
