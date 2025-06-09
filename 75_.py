@@ -415,6 +415,77 @@ elif page == "🛠️ Modeling":
     ax_pca.set_ylabel("PCA 2")
     st.pyplot(fig_pca)
     st.dataframe(risk_summary.style.format({"mean": "{:.2%}"}))
+    
+    # =============================
+    # Lifestyle Clustering Section
+    # =============================
+    st.subheader("🧬 Klastering Gaya Hidup")
+
+    lifestyle_features = [
+        "smoking_status", "alcohol_consumption", "physical_activity",
+        "dietary_habits", "sleep_hours", "obesity", "stress_level", "air_pollution_exposure"
+    ]
+
+    df_lifestyle = df[lifestyle_features].copy()
+    cat_cols = ["smoking_status", "alcohol_consumption", "physical_activity", "dietary_habits", "stress_level", "air_pollution_exposure"]
+    for col in cat_cols:
+        df_lifestyle[col] = LabelEncoder().fit_transform(df_lifestyle[col])
+
+    df_lifestyle['tidur_cukup'] = (df_lifestyle['sleep_hours'] >= 6).astype(int)
+    df_lifestyle.drop(columns='sleep_hours', inplace=True)
+
+    scaler = StandardScaler()
+    df_scaled = scaler.fit_transform(df_lifestyle)
+
+    kmeans = KMeans(n_clusters=3, random_state=123, n_init=10)
+    lifestyle_cluster = kmeans.fit_predict(df_scaled)
+
+    df['lifestyle_cluster'] = lifestyle_cluster
+
+    cluster_means = df_lifestyle.copy()
+    cluster_means['cluster'] = lifestyle_cluster
+    mean_per_cluster = cluster_means.groupby('cluster').mean()
+
+    mean_per_cluster['unhealthy_score'] = (
+        (cluster_means[['physical_activity']].max().max() - mean_per_cluster['physical_activity']) +
+        mean_per_cluster['smoking_status'] +
+        mean_per_cluster['alcohol_consumption'] +
+        (cluster_means[['dietary_habits']].max().max() - mean_per_cluster['dietary_habits']) +
+        (1 - mean_per_cluster['tidur_cukup']) +
+        mean_per_cluster['obesity'] +
+        mean_per_cluster['stress_level'] +
+        mean_per_cluster['air_pollution_exposure']
+    )
+
+    ranked_clusters = mean_per_cluster['unhealthy_score'].sort_values(ascending=False).index.tolist()
+    cluster_labels = {cluster: label for cluster, label in zip(ranked_clusters, ['Tidak Sehat', 'Sedang', 'Sehat'])}
+    df['lifestyle_category'] = df['lifestyle_cluster'].map(cluster_labels)
+
+    # PCA & Scatter Plot
+    pca = PCA(n_components=2)
+    lifestyle_2d = pca.fit_transform(df_scaled)
+
+    df['pca_1'] = lifestyle_2d[:, 0]
+    df['pca_2'] = lifestyle_2d[:, 1]
+
+    fig_life, ax_life = plt.subplots(figsize=(10, 6))
+    sns.scatterplot(
+        data=df,
+        x='pca_1', y='pca_2',
+        hue='lifestyle_category',
+        palette={'Sehat': 'green', 'Sedang': 'orange', 'Tidak Sehat': 'red'},
+        alpha=0.6, ax=ax_life
+    )
+    ax_life.set_title('Visualisasi Klaster Gaya Hidup (PCA 2D)')
+    ax_life.set_xlabel('PCA Komponen 1')
+    ax_life.set_ylabel('PCA Komponen 2')
+    st.pyplot(fig_life)
+
+    # Ringkasan distribusi kategori
+    st.subheader("📋 Ringkasan Klaster Gaya Hidup")
+    summary = df['lifestyle_category'].value_counts()
+    st.dataframe(summary.rename_axis("Kategori Gaya Hidup").reset_index(name="Jumlah"))
+
 
 
 # ===============================
