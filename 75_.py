@@ -415,7 +415,6 @@ elif page == "🛠️ Modeling":
     ax_pca.set_ylabel("PCA 2")
     st.pyplot(fig_pca)
     st.dataframe(risk_summary.style.format({"mean": "{:.2%}"}))
-    st.write(X_test.columns.tolist())
 
     # =============================
     # Lifestyle Clustering Section
