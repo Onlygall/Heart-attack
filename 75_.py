@@ -468,7 +468,7 @@ elif page == "🛠️ Modeling":
     cluster_labels = {cluster: label for cluster, label in zip(ranked_clusters, ['Tidak Sehat', 'Sedang', 'Sehat'])}
     ndf['lifestyle_category'] = ndf['lifestyle_cluster'].map(cluster_labels)
 
-    # 1. PCA untuk reduksi dimensi ke 2D
+    # 1. Lakukan PCA
     pca = PCA(n_components=2)
     lifestyle_2d = pca.fit_transform(df_scaled)
 
@@ -476,20 +476,23 @@ elif page == "🛠️ Modeling":
     ndf['pca_1'] = lifestyle_2d[:, 0]
     ndf['pca_2'] = lifestyle_2d[:, 1]
 
-    plt.figure(figsize=(10, 6))
+    # 3. Visualisasi dengan subplot dan Streamlit
+    fig_pca, ax_pca = plt.subplots(figsize=(10, 6))
     sns.scatterplot(
         data=ndf,
         x='pca_1', y='pca_2',
         hue='lifestyle_category',
         palette={'Sehat': 'green', 'Sedang': 'orange', 'Tidak Sehat': 'red'},
-        alpha=0.6
+        alpha=0.6,
+        ax=ax_pca
     )
 
-    plt.title("Visualisasi PCA Berdasarkan Kategori Lifestyle")
-    plt.xlabel("PCA Komponen 1")
-    plt.ylabel("PCA Komponen 2")
-    plt.legend(title='Kategori Lifestyle')
-    st.pyplot(fig)
+    ax_pca.set_title("Visualisasi PCA Berdasarkan Kategori Lifestyle")
+    ax_pca.set_xlabel("PCA Komponen 1")
+    ax_pca.set_ylabel("PCA Komponen 2")
+    ax_pca.legend(title='Kategori Lifestyle')
+    st.pyplot(fig_pca)
+
 
     # Ringkasan distribusi kategori
     summary = ndf['lifestyle_category'].value_counts()
