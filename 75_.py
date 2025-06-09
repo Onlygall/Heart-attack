@@ -320,11 +320,11 @@ elif page == "🛠️ Modeling":
     - **AUC Score** sebesar **{auc:.3f}** menunjukkan kemampuan model membedakan kelas.
     """)
 
-    st.subheader("📋 Classification Report")
+    st.write("**📋 Classification Report**")
     report_df = pd.DataFrame(classification_report(y_test, y_pred, output_dict=True)).transpose()
     st.dataframe(report_df.style.format("{:.2f}"))
 
-    st.subheader("📌 Confusion Matrix")
+    st.write("**📌 Confusion Matrix**")
     cm = confusion_matrix(y_test, y_pred)
     fig, ax = plt.subplots()
     sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=[0, 1], yticklabels=[0, 1])
@@ -337,7 +337,7 @@ elif page == "🛠️ Modeling":
     - **False Positive (FP)** dan **False Negative (FN)** menunjukkan kesalahan model.
     """)
 
-    st.subheader("📉 ROC Curve")
+    st.write("**📉 ROC Curve**")
     fpr, tpr, _ = roc_curve(y_test, y_proba)
     fig2, ax2 = plt.subplots()
     ax2.plot(fpr, tpr, label=f"AUC = {auc:.2f}")
