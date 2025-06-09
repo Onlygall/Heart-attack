@@ -402,7 +402,7 @@ elif page == "🛠️ Modeling":
     df_clustered["risk_level"] = df_clustered["cluster"].map(cluster_risk_map)
 
 
-    st.markdown("**🧭 Visualisasi Klaster (PCA)"**)
+    st.markdown("**🧭 Visualisasi Klaster (PCA)**")
     pca = PCA(n_components=2)
     X_pca = pca.fit_transform(X_cluster_processed)
 
