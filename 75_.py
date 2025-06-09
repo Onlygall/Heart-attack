@@ -427,65 +427,75 @@ elif page == "🛠️ Modeling":
         "dietary_habits", "sleep_hours", "obesity", "stress_level", "air_pollution_exposure"
     ]
 
-    df_lifestyle = data[lifestyle_features].copy()
-    cat_cols = ["smoking_status", "alcohol_consumption", "physical_activity", "dietary_habits", "stress_level", "air_pollution_exposure"]
-    for col in cat_cols:
+    ndf = df_all[selected_features]
+    df_lifestyle = ndf[lifestyle_features].copy()
+
+    # 2. Label encoding untuk kolom kategorikal
+    categorical_cols = ["smoking_status", "alcohol_consumption", "physical_activity", "dietary_habits", "stress_level", "air_pollution_exposure"]
+    for col in categorical_cols:
         df_lifestyle[col] = LabelEncoder().fit_transform(df_lifestyle[col])
 
+    # 3. Fitur biner untuk tidur cukup
     df_lifestyle['tidur_cukup'] = (df_lifestyle['sleep_hours'] >= 6).astype(int)
     df_lifestyle.drop(columns='sleep_hours', inplace=True)
 
+    # 4. Normalisasi
     scaler = StandardScaler()
     df_scaled = scaler.fit_transform(df_lifestyle)
 
+    # 5. KMeans Klastering
     kmeans = KMeans(n_clusters=3, random_state=123, n_init=10)
-    lifestyle_cluster = kmeans.fit_predict(df_scaled)
+    ndf['lifestyle_cluster'] = kmeans.fit_predict(df_scaled)
 
-    df['lifestyle_cluster'] = lifestyle_cluster
-
+    # 6. Hitung rata-rata tiap fitur per klaster
     cluster_means = df_lifestyle.copy()
-    cluster_means['cluster'] = lifestyle_cluster
+    cluster_means['cluster'] = ndf['lifestyle_cluster']
     mean_per_cluster = cluster_means.groupby('cluster').mean()
 
+    # 7. Skor tidak sehat berdasarkan fitur negatif
     mean_per_cluster['unhealthy_score'] = (
-        (cluster_means[['physical_activity']].max().max() - mean_per_cluster['physical_activity']) +
+        (cluster_means[['physical_activity']].max().max() - mean_per_cluster['physical_activity']) +  # pasif = buruk
         mean_per_cluster['smoking_status'] +
         mean_per_cluster['alcohol_consumption'] +
-        (cluster_means[['dietary_habits']].max().max() - mean_per_cluster['dietary_habits']) +
+        (cluster_means[['dietary_habits']].max().max() - mean_per_cluster['dietary_habits']) +  # buruk = skor tinggi
         (1 - mean_per_cluster['tidur_cukup']) +
         mean_per_cluster['obesity'] +
         mean_per_cluster['stress_level'] +
         mean_per_cluster['air_pollution_exposure']
     )
 
+    # 8. Ranking klaster
     ranked_clusters = mean_per_cluster['unhealthy_score'].sort_values(ascending=False).index.tolist()
     cluster_labels = {cluster: label for cluster, label in zip(ranked_clusters, ['Tidak Sehat', 'Sedang', 'Sehat'])}
-    df['lifestyle_category'] = df['lifestyle_cluster'].map(cluster_labels)
+    ndf['lifestyle_category'] = ndf['lifestyle_cluster'].map(cluster_labels)
 
-    # PCA & Scatter Plot
+    # 1. PCA untuk reduksi dimensi ke 2D
     pca = PCA(n_components=2)
     lifestyle_2d = pca.fit_transform(df_scaled)
 
-    df['pca_1'] = lifestyle_2d[:, 0]
-    df['pca_2'] = lifestyle_2d[:, 1]
+    # 2. Tambahkan hasil PCA ke DataFrame
+    ndf['pca_1'] = lifestyle_2d[:, 0]
+    ndf['pca_2'] = lifestyle_2d[:, 1]
 
-    fig_life, ax_life = plt.subplots(figsize=(10, 6))
+    plt.figure(figsize=(10, 6))
     sns.scatterplot(
-        data=df,
+        data=ndf,
         x='pca_1', y='pca_2',
         hue='lifestyle_category',
         palette={'Sehat': 'green', 'Sedang': 'orange', 'Tidak Sehat': 'red'},
-        alpha=0.6, ax=ax_life
+        alpha=0.6
     )
-    ax_life.set_title('Visualisasi Klaster Gaya Hidup (PCA 2D)')
-    ax_life.set_xlabel('PCA Komponen 1')
-    ax_life.set_ylabel('PCA Komponen 2')
-    st.pyplot(fig_life)
+
+    plt.title("Visualisasi PCA Berdasarkan Kategori Lifestyle")
+    plt.xlabel("PCA Komponen 1")
+    plt.ylabel("PCA Komponen 2")
+    plt.legend(title='Kategori Lifestyle')
+    st.pyplot(fig)
 
     # Ringkasan distribusi kategori
-    st.subheader("📋 Ringkasan Klaster Gaya Hidup")
-    summary = df['lifestyle_category'].value_counts()
-    st.dataframe(summary.rename_axis("Kategori Gaya Hidup").reset_index(name="Jumlah"))
+    summary = ndf['lifestyle_category'].value_counts()
+    st.subheader("Distribusi Kategori Gaya Hidup")
+    st.write(summary)
 
 
 
