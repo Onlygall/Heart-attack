@@ -498,6 +498,83 @@ elif page == "🛠️ Modeling":
     summary = ndf['lifestyle_category'].value_counts()
     st.subheader("Distribusi Kategori Gaya Hidup")
     st.write(summary)
+    
+    # ===============================
+    # Klaster Gejala & Kondisi Klinis
+    # ===============================
+
+    # Define clinical features
+    clinical_features = [
+        'cholesterol_level', 'cholesterol_ldl', 'cholesterol_hdl', 'triglycerides',
+        'blood_pressure_systolic', 'blood_pressure_diastolic',
+        'hypertension', 'diabetes', 'fasting_blood_sugar', 'EKG_results',
+        'medication_usage', 'previous_heart_disease', 'family_history'
+    ]
+
+    # Ambil subset
+    X_clinical = ndf[clinical_features]
+
+    # Tentukan kolom kategorikal dan numerik
+    cat_clinical = ['EKG_results']
+    num_clinical = [col for col in clinical_features if col not in cat_clinical]
+
+    # Preprocessing pipeline
+    clinical_preprocessor = ColumnTransformer([
+        ('num', StandardScaler(), num_clinical),
+        ('cat', OneHotEncoder(handle_unknown='ignore'), cat_clinical)
+    ])
+
+    X_clinical_processed = clinical_preprocessor.fit_transform(X_clinical)
+
+    # KMeans untuk 4 klaster
+    kmeans_clinical = KMeans(n_clusters=4, random_state=123, n_init=10)
+    ndf["clinical_cluster"] = kmeans_clinical.fit_predict(X_clinical_processed)
+
+    # Profil setiap klaster
+    cluster_summary = ndf.groupby("clinical_cluster")[clinical_features].agg({
+        'cholesterol_ldl': 'mean',
+        'triglycerides': 'mean',
+        'cholesterol_hdl': 'mean',
+        'blood_pressure_systolic': 'mean',
+        'blood_pressure_diastolic': 'mean',
+        'fasting_blood_sugar': 'mean',
+        'EKG_results': lambda x: x.value_counts().index[0]
+    })
+
+    print("\n📊 Ringkasan Karakteristik Tiap Klaster Klinis:")
+    print(cluster_summary)
+
+    # Manual mapping berdasarkan analisis cluster_summary
+    # Anda bisa menyesuaikan setelah melihat data hasil di atas
+    clinical_label_map = {
+        0: "Hipertensif",
+        1: "Dislipidemia",
+        2: "Abnormal EKG",
+        3: "Gula Darah Tinggi / Pre-diabetes"
+    }
+
+    ndf["clinical_label"] = ndf["clinical_cluster"].map(clinical_label_map)
+    # PCA untuk reduksi dimensi
+    pca_clinical = PCA(n_components=2)
+    X_clinical_pca = pca_clinical.fit_transform(X_clinical_processed)
+
+    # Visualisasi dengan Streamlit
+    fig_clinical, ax_clinical = plt.subplots(figsize=(8, 6))
+    sns.scatterplot(
+        x=X_clinical_pca[:, 0],
+        y=X_clinical_pca[:, 1],
+        hue=ndf["clinical_label"],
+        palette="tab10",
+        ax=ax_clinical
+    )
+
+    ax_clinical.set_title("Klaster Gejala & Kondisi Klinis")
+    ax_clinical.set_xlabel("PCA 1")
+    ax_clinical.set_ylabel("PCA 2")
+    ax_clinical.legend(title="Kondisi Klinis")
+    st.pyplot(fig_clinical)
+    st.subheader("Ringkasan Karakteristik Tiap Klaster Klinis")
+    st.dataframe(cluster_summary)
 
 
 
