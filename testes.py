@@ -10,6 +10,7 @@ Original file is located at
 import streamlit as st
 import pandas as pd
 import joblib
+from joblib import load
 
 # Load model dan dataset
 model = load("heart_attack_prediction_pipeline.joblib")
