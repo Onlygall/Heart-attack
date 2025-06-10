@@ -696,7 +696,7 @@ elif page == "🔮 Prediksi":
     alcohol_consumption = st.selectbox("Konsumsi Alkohol", ["Ya", "Tidak"])
     alcohol_consumption_encoded = 1 if alcohol_consumption == "Ya" else 0
     fasting_blood_sugar = st.slider("Gula Darah Puasa (mg/dL)", 50, 250, 100)
-    EKG_results = st.selectbox("Hasil EKG", ["Normaal","Abnormal"])
+    EKG_results = st.selectbox("Hasil EKG", ["Normal","Abnormal"])
     EKG_results_encoded = 1 if EKG_results == "Abnormal" else 0
     medication_usage = st.selectbox("Penggunaan Obat", ["Ya", "Tidak"])
     medication_usage_encoded = 1 if medication_usage == "Ya" else 0
@@ -719,7 +719,7 @@ elif page == "🔮 Prediksi":
         ]])
 
         prediction = model.predict(input_data)
-        result =  f"{nama} 💔 Kamu Berisiko Tekena Serangan Jantung" if prediction[0] == 1 else  f"{nama} ❤️ Kamu Tidak Berisiko"
+        result =  f"{nama} 💔 Kamu Berisiko Terkena Serangan Jantung" if prediction[0] == 1 else  f"{nama} ❤️ Kamu Tidak Berisiko Terkena Serangan Jantung"
         st.subheader("Hasil Prediksi:")
         st.success(result)
 
