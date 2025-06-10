@@ -369,11 +369,11 @@ elif page == "⚙️ Modeling":
     Model **XGBoost** memiliki kemampuan untuk mengevaluasi seberapa penting setiap fitur terhadap proses prediksi.
     Hal ini dilakukan melalui atribut `.feature_importances_`.
 
-    ### Bagaimana Cara Kerjanya?
+    Bagaimana Cara Kerjanya?
     - Nilai **feature importance** dihitung berdasarkan **frekuensi** dan **kualitas pemisahan (split)** yang dilakukan oleh fitur tersebut di seluruh pohon keputusan yang dibentuk oleh model.
     - Fitur yang lebih sering digunakan untuk membuat pemisahan yang "bagus" akan mendapatkan skor importance yang lebih tinggi.
 
-    ### Interpretasi:
+    Interpretasi:
     - Semakin **tinggi nilai importance**, semakin besar **pengaruh fitur tersebut terhadap hasil prediksi**.
     - Informasi ini sangat berguna untuk memahami model, meningkatkan interpretabilitas, serta membantu dalam proses **feature selection** (pemilihan fitur yang paling relevan).
 
@@ -384,7 +384,7 @@ elif page == "⚙️ Modeling":
     # ===============================
     # Klastering Risiko Serangan Jantung
     # ===============================
-    st.subheader("## 📌 Klastering Risiko Serangan Jantung")
+    st.subheader("📌 Klastering Risiko Serangan Jantung")
 
     df_all = pd.read_csv("https://raw.githubusercontent.com/Onlygall/Heart-attack/main/heart_attack_prediction_indonesia.csv")
     df_all['alcohol_consumption'] = df_all['alcohol_consumption'].fillna("None")
@@ -416,10 +416,23 @@ elif page == "⚙️ Modeling":
     cluster_risk_map = risk_summary["risk_label"].to_dict()
     df_clustered["risk_level"] = df_clustered["cluster"].map(cluster_risk_map)
 
+
+    st.write("-Distribusi Risiko per Klaster")
+    pca = PCA(n_components=2)
+    X_pca = pca.fit_transform(X_cluster_processed)
+
+    fig_pca, ax_pca = plt.subplots(figsize=(8, 6))
+    sns.scatterplot(x=X_pca[:, 0], y=X_pca[:, 1],
+                    hue=df_clustered["risk_level"],
+                    palette={"Rendah": "green", "Sedang": "orange", "Tinggi": "red"}, ax=ax_pca)
+    ax_pca.set_title("Klaster Risiko Serangan Jantung (KMeans)")
+    ax_pca.set_xlabel("PCA 1")
+    ax_pca.set_ylabel("PCA 2")
+    st.pyplot(fig_pca)
     st.markdown("""
     Setelah dilakukan klastering menggunakan algoritma **KMeans**, data pasien terbagi menjadi **3 kelompok utama** berdasarkan kemiripan karakteristik kesehatannya. Masing-masing klaster memiliki **tingkat risiko berbeda terhadap serangan jantung** berdasarkan proporsi kasus `heart_attack` di dalamnya.
 
-    ### 🧠 Penjelasan Tiap Klaster:
+    🧠 Penjelasan Tiap Klaster:
 
     - **Klaster Risiko Tinggi**
       - Memiliki proporsi tertinggi pasien dengan riwayat serangan jantung.
@@ -438,20 +451,6 @@ elif page == "⚙️ Modeling":
       - Paling sedikit kasus serangan jantung.
       - Umumnya memiliki pola hidup lebih sehat dan hasil medis yang lebih baik.
     """)
-
-
-    st.write("Distribusi Risiko per Klaster")
-    pca = PCA(n_components=2)
-    X_pca = pca.fit_transform(X_cluster_processed)
-
-    fig_pca, ax_pca = plt.subplots(figsize=(8, 6))
-    sns.scatterplot(x=X_pca[:, 0], y=X_pca[:, 1],
-                    hue=df_clustered["risk_level"],
-                    palette={"Rendah": "green", "Sedang": "orange", "Tinggi": "red"}, ax=ax_pca)
-    ax_pca.set_title("Klaster Risiko Serangan Jantung (KMeans)")
-    ax_pca.set_xlabel("PCA 1")
-    ax_pca.set_ylabel("PCA 2")
-    st.pyplot(fig_pca)
     st.dataframe(risk_summary.style.format({"mean": "{:.2%}"}))
 
     # =============================
@@ -537,7 +536,7 @@ elif page == "⚙️ Modeling":
     st.write("""
     Klastering ini mengelompokkan individu berdasarkan kebiasaan hidup mereka, seperti merokok, pola makan, aktivitas fisik, stres, tidur, dan lainnya. Hasil klaster ini dibagi menjadi tiga kategori:
 
-    ### 🚦 Kategori Klaster:
+    🚦 Kategori Klaster:
     - 🟥 **Tidak Sehat**
       Individu dalam kelompok ini menunjukkan kebiasaan negatif seperti:
       - Merokok dan konsumsi alkohol tinggi
@@ -608,6 +607,8 @@ elif page == "⚙️ Modeling":
     print("\n📊 Ringkasan Karakteristik Tiap Klaster Klinis:")
     print(cluster_summary)
 
+    st.subheader("🧬 Klaster Gejala & Kondisi Klinis")
+
     # Manual mapping berdasarkan analisis cluster_summary
     # Anda bisa menyesuaikan setelah melihat data hasil di atas
     clinical_label_map = {
@@ -640,7 +641,7 @@ elif page == "⚙️ Modeling":
     st.write("""
     Klastering ini bertujuan untuk mengelompokkan individu berdasarkan kondisi kesehatan klinis seperti tekanan darah, kolesterol, gula darah, dan hasil EKG. Berikut adalah hasil interpretasi dari masing-masing klaster:
 
-    ### 🧾 Ringkasan Klaster Klinis:
+    🧾 Ringkasan Klaster Klinis:
 
     | **Label Klaster**             | **Ciri-Ciri Utama**                                                                 |
     |------------------------------|--------------------------------------------------------------------------------------|
@@ -650,7 +651,7 @@ elif page == "⚙️ Modeling":
     | 🟦 **Gula Darah Tinggi**      | Gula darah puasa tinggi, mengarah ke kondisi pre-diabetes atau diabetes awal       |
 
 
-    ### 📌 Catatan:
+    📌 Catatan:
     Label klaster ini **ditentukan secara manual berdasarkan karakteristik dominan** dari tiap kelompok setelah proses klastering. Artinya, klaster tidak berdasarkan diagnosis langsung, tetapi berdasarkan kesamaan pola data klinis.
 
     """)
@@ -727,4 +728,5 @@ elif page == "👥 About":
     - 👤 Zulfa -
     - 👤 Wahida -
 
-    - Terima kasih telah menggunakan aplikasi kami! ❤️""")
+    
+    #Terima kasih telah menggunakan aplikasi kami! ❤️""")
