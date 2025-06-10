@@ -53,7 +53,7 @@ page = st.sidebar.selectbox("Pilih Halaman", pages)
 # Halaman: Deskripsi Data
 # ===============================
 if page == "📰 Informasi":
-    st.title("🫀 Serangan Jantung Di Indonesia")
+    st.title("💓 Serangan Jantung Di Indonesia")
     st.markdown("### Statistik, Penyebab, dan Upaya Pencegahan")
     st.write("""
     Serangan jantung merupakan salah satu penyebab kematian utama di Indonesia. Penyakit ini terjadi ketika aliran darah ke bagian jantung tersumbat, biasanya karena penumpukan lemak, kolesterol, dan zat lain.
@@ -721,6 +721,7 @@ elif page == "🔮 Prediksi":
         result = "💔 Berisiko Serangan Jantung" if prediction[0] == 1 else "❤️ Tidak Berisiko"
         st.subheader("Hasil Prediksi:")
         st.success(result)
+        st.markdown(prediction)
 
 # ===============================
 # Halaman: Tentang Tim
