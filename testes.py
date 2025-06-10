@@ -16,7 +16,7 @@ from joblib import load
 model = load("heart_attack_prediction_pipeline.joblib")
 url = 'https://raw.githubusercontent.com/Onlygall/Heart-attack/main/heart_attack_prediction_indonesia.csv'
 df = pd.read_csv(url)
-df['alcohol_consumption'] = data['alcohol_consumption'].fillna("None")
+df['alcohol_consumption'] = df['alcohol_consumption'].fillna("None")
 
 st.set_page_config(page_title="Prediksi Serangan Jantung", layout="wide")
 st.title("💓 Prediksi Risiko Serangan Jantung")
