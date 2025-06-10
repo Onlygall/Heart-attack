@@ -672,38 +672,49 @@ elif page == "🔮 Prediksi":
     gender = st.selectbox("Jenis Kelamin", ["Laki-laki", "Perempuan"])
     gender_encoded = 1 if gender == "Laki-laki" else 0
 
-    cholesterol_level = st.number_input("Total Kolesterol", min_value=0.0)
-    cholesterol_ldl = st.number_input("LDL Kolesterol", min_value=0.0)
-    cholesterol_hdl = st.number_input("HDL Kolesterol", min_value=0.0)
-    triglycerides = st.number_input("Trigliserida", min_value=0.0)
-    blood_pressure_systolic = st.number_input("Tekanan Darah Sistolik", min_value=0)
-    blood_pressure_diastolic = st.number_input("Tekanan Darah Diastolik", min_value=0)
-    hypertension = st.selectbox("Hipertensi", [0, 1])
-    diabetes = st.selectbox("Diabetes", [0, 1])
-    smoking_status = st.selectbox("Merokok", [0, 1])
-    obesity = st.selectbox("Obesitas", [0, 1])
-    waist_circumference = st.number_input("Lingkar Pinggang (cm)", min_value=0.0)
+    cholesterol_level = st.slider("Total Kolesterol", 0, 300, 150)
+    cholesterol_ldl = st.slider("LDL Kolesterol", 0, 300, 100)
+    cholesterol_hdl = st.slider("HDL Kolesterol", 0, 150, 100)
+    triglycerides = st.slider("Trigliserida", 0, 500, 100)
+    blood_pressure_systolic = st.slider("Tekanan Darah Sistolik", 70,250, 120)
+    blood_pressure_diastolic = st.slider("Tekanan Darah Diastolik",20, 150, 60)
+    hypertension = st.selectbox("Hipertensi", ["Ya", "Tidak"])
+    hypertension_encoded = 2 if hypertension == "Ya" else 0
+    diabetes = st.selectbox("Diabetes", ["Ya", "Tidak"])
+    diabetes_encoded = 1 if diabetes == "Ya" else 0
+    smoking_status = st.selectbox("Merokok", ["Tidak Pernah", "Dulu", "Ya"])
+    smoking_status_encoded = 1 if smoking_status == "Ya" else (1 if smoking_status == "Dulu" else 0)
+    obesity = st.selectbox("Obesitas", ["Ya", "Tidak"])
+    obesity_encoded = 1 if obesity == "Ya" else 0
+    waist_circumference = st.slider("Lingkar Pinggang (cm)", 10, 200, 80)
     physical_activity = st.number_input("Aktivitas Fisik (jam/minggu)", min_value=0.0)
-    previous_heart_disease = st.selectbox("Riwayat Penyakit Jantung", [0, 1])
-    family_history = st.selectbox("Riwayat Keluarga", [0, 1])
-    alcohol_consumption = st.selectbox("Konsumsi Alkohol", [0, 1])
-    fasting_blood_sugar = st.number_input("Gula Darah Puasa (mg/dL)", min_value=0.0)
-    EKG_results = st.selectbox("Hasil EKG", [0, 1, 2])
-    medication_usage = st.selectbox("Penggunaan Obat", [0, 1])
-    dietary_habits = st.selectbox("Kebiasaan Diet (1=Baik, 0=Buruk)", [0, 1])
+    previous_heart_disease = st.selectbox("Riwayat Penyakit Jantung", ["Pernah", "Tidak"])
+    previous_heart_disease_encoded = 1 if previous_heart_disease == "Pernah" else 0
+    family_history = st.selectbox("Riwayat Keluarga", ["Ada", "Tidak"])
+    family_history_encoded = 1 if family_history == "Ada" else 0
+    alcohol_consumption = st.selectbox("Konsumsi Alkohol", ["Ya", "Tidak"])
+    alcohol_consumption_encoded = 1 if alcohol_consumption == "Ya" else 0
+    fasting_blood_sugar = st.slider("Gula Darah Puasa (mg/dL)", 50, 250, 100)
+    EKG_results = st.selectbox("Hasil EKG", ["Normaal","Abnormal"])
+    EKG_results_encoded = 1 if EKG_results == "Abnormal" else 0
+    medication_usage = st.selectbox("Penggunaan Obat", ["Ya", "Tidak"])
+    medication_usage_encoded = 1 if medication_usage == "Ya" else 0
+    dietary_habits = st.selectbox("Pola Makan", ["Sehat", "Tidak Sehat"])
+    dietary_habits_encoded = 1 if dietary_habits == "Sehat" else 0
     stress_level = st.slider("Tingkat Stres (1=rendah, 10=tinggi)", min_value=1, max_value=10)
     sleep_hours = st.number_input("Jam Tidur per Hari", min_value=0.0, max_value=24.0)
-    air_pollution_exposure = st.number_input("Paparan Polusi Udara (PM2.5 μg/m³)", min_value=0.0)
+    air_pollution_exposure = st.selectbox("Paparan Polusi Udara", ["Rendah", "Sedang", "Tinggi"])
+    air_pollution_exposure_encoded = 2 if air_pollution_exposure == "Tinggi" else (1 if air_pollution_exposure == "Sedang" else 0)
 
     if st.button("Prediksi"):
         input_data = np.array([[
             age, gender_encoded, cholesterol_level, cholesterol_ldl, cholesterol_hdl,
             triglycerides, blood_pressure_systolic, blood_pressure_diastolic,
-            hypertension, diabetes, smoking_status, obesity,
-            waist_circumference, physical_activity, previous_heart_disease,
-            family_history, alcohol_consumption, fasting_blood_sugar,
-            EKG_results, medication_usage, dietary_habits,
-            stress_level, sleep_hours, air_pollution_exposure
+            hypertension_encoded, diabetes_encoded, smoking_status_encoded, obesity_encoded,
+            waist_circumference, physical_activity, previous_heart_disease_encoded,
+            family_history_encoded, alcohol_consumption_encoded, fasting_blood_sugar,
+            EKG_results_encoded, medication_usage_encoded, dietary_habits_encoded,
+            stress_level, sleep_hours, air_pollution_exposure_encoded
         ]])
 
         prediction = model.predict(input_data)
