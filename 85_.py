@@ -721,7 +721,6 @@ elif page == "🔮 Prediksi":
         result = "💔 Berisiko Serangan Jantung" if prediction[0] == 1 else "❤️ Tidak Berisiko"
         st.subheader("Hasil Prediksi:")
         st.success(result)
-        st.markdown(prediction)
 
 # ===============================
 # Halaman: Tentang Tim
