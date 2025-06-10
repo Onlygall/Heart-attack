@@ -112,7 +112,7 @@ if page == "📰 Informasi":
     """)
     st.pyplot(line_chart(biaya_data, "Tahun", "Biaya (Triliun Rp)", 'red', "Biaya (Triliun Rp)"))
 
-    st.subheader("👶 Usia Rata-rata Diagnosis Pertama")
+    st.subheader("🧓 Usia Rata-rata Diagnosis Pertama")
     st.markdown("""
     Rata-rata usia diagnosis pertama penyakit jantung menurun dari 48,5 tahun pada 2013 menjadi 43,2 tahun pada 2023.
     """)
@@ -416,8 +416,6 @@ elif page == "⚙️ Modeling":
     cluster_risk_map = risk_summary["risk_label"].to_dict()
     df_clustered["risk_level"] = df_clustered["cluster"].map(cluster_risk_map)
 
-
-    st.write("-Distribusi Risiko per Klaster")
     pca = PCA(n_components=2)
     X_pca = pca.fit_transform(X_cluster_processed)
 
@@ -432,7 +430,7 @@ elif page == "⚙️ Modeling":
     st.markdown("""
     Setelah dilakukan klastering menggunakan algoritma **KMeans**, data pasien terbagi menjadi **3 kelompok utama** berdasarkan kemiripan karakteristik kesehatannya. Masing-masing klaster memiliki **tingkat risiko berbeda terhadap serangan jantung** berdasarkan proporsi kasus `heart_attack` di dalamnya.
 
-    🧠 Penjelasan Tiap Klaster:
+    Penjelasan Tiap Klaster:
 
     - **Klaster Risiko Tinggi**
       - Memiliki proporsi tertinggi pasien dengan riwayat serangan jantung.
@@ -451,6 +449,7 @@ elif page == "⚙️ Modeling":
       - Paling sedikit kasus serangan jantung.
       - Umumnya memiliki pola hidup lebih sehat dan hasil medis yang lebih baik.
     """)
+    st.write("Distribusi Risiko per Klaster")
     st.dataframe(risk_summary.style.format({"mean": "{:.2%}"}))
 
     # =============================
@@ -536,7 +535,7 @@ elif page == "⚙️ Modeling":
     st.write("""
     Klastering ini mengelompokkan individu berdasarkan kebiasaan hidup mereka, seperti merokok, pola makan, aktivitas fisik, stres, tidur, dan lainnya. Hasil klaster ini dibagi menjadi tiga kategori:
 
-    🚦 Kategori Klaster:
+    Kategori Klaster:
     - 🟥 **Tidak Sehat**
       Individu dalam kelompok ini menunjukkan kebiasaan negatif seperti:
       - Merokok dan konsumsi alkohol tinggi
@@ -607,7 +606,7 @@ elif page == "⚙️ Modeling":
     print("\n📊 Ringkasan Karakteristik Tiap Klaster Klinis:")
     print(cluster_summary)
 
-    st.subheader("🧬 Klaster Gejala & Kondisi Klinis")
+    st.subheader("🩼 Klaster Gejala & Kondisi Klinis")
 
     # Manual mapping berdasarkan analisis cluster_summary
     # Anda bisa menyesuaikan setelah melihat data hasil di atas
