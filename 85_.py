@@ -664,10 +664,11 @@ elif page == "⚙️ Modeling":
 # ===============================
 elif page == "🔮 Prediksi":
     st.title("🔮 Prediksi Heart Attack")
-    st.write("Masukkan data pasien untuk memprediksi kemungkinan serangan jantung.")
+    st.write("Masukkan data untuk memprediksi kemungkinan serangan jantung.")
     model = load("heart_attack_prediction_pipeline.joblib")
 
     # Input Form
+    nama = st.text_input("Masukkan nama")
     age = st.number_input("Umur", min_value=1, max_value=120, value=30)
     gender = st.selectbox("Jenis Kelamin", ["Laki-laki", "Perempuan"])
     gender_encoded = 1 if gender == "Laki-laki" else 0
@@ -718,7 +719,7 @@ elif page == "🔮 Prediksi":
         ]])
 
         prediction = model.predict(input_data)
-        result = "💔 Berisiko Serangan Jantung" if prediction[0] == 1 else "❤️ Tidak Berisiko"
+        result =  f"{nama} 💔 Kamu Berisiko Tekena Serangan Jantung" if prediction[0] == 1 else  f"{nama} ❤️ Kamu Tidak Berisiko"
         st.subheader("Hasil Prediksi:")
         st.success(result)
 
