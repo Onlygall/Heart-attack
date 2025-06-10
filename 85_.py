@@ -449,7 +449,7 @@ elif page == "⚙️ Modeling":
       - Paling sedikit kasus serangan jantung.
       - Umumnya memiliki pola hidup lebih sehat dan hasil medis yang lebih baik.
     """)
-    st.write("Distribusi Risiko per Klaster")
+    st.write("Distribusi Risiko per Klaster:")
     st.dataframe(risk_summary.style.format({"mean": "{:.2%}"}))
 
     # =============================
@@ -558,7 +558,7 @@ elif page == "⚙️ Modeling":
     """)
 
 
-    st.write("Distribusi Kategori Gaya Hidup")
+    st.write("Distribusi Kategori Gaya Hidup:")
     st.write(summary)
 
     # ===============================
@@ -640,7 +640,7 @@ elif page == "⚙️ Modeling":
     st.write("""
     Klastering ini bertujuan untuk mengelompokkan individu berdasarkan kondisi kesehatan klinis seperti tekanan darah, kolesterol, gula darah, dan hasil EKG. Berikut adalah hasil interpretasi dari masing-masing klaster:
 
-    🧾 Ringkasan Klaster Klinis:
+    Ringkasan Klaster Klinis:
 
     | **Label Klaster**             | **Ciri-Ciri Utama**                                                                 |
     |------------------------------|--------------------------------------------------------------------------------------|
@@ -650,11 +650,11 @@ elif page == "⚙️ Modeling":
     | 🟦 **Gula Darah Tinggi**      | Gula darah puasa tinggi, mengarah ke kondisi pre-diabetes atau diabetes awal       |
 
 
-    📌 Catatan:
+    Catatan:
     Label klaster ini **ditentukan secara manual berdasarkan karakteristik dominan** dari tiap kelompok setelah proses klastering. Artinya, klaster tidak berdasarkan diagnosis langsung, tetapi berdasarkan kesamaan pola data klinis.
 
     """)
-    st.write("Ringkasan Karakteristik Tiap Klaster Klinis")
+    st.write("Ringkasan Karakteristik Tiap Klaster Klinis:")
     st.dataframe(cluster_summary)
 
 
