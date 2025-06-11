@@ -744,7 +744,8 @@ elif page == "👥 About":
         st.image('https://raw.githubusercontent.com/Onlygall/Heart-attack/main/image/hahaha%20gas%20melon%20hahaha%20(1).jpg', width=150, caption="👤 Zulfa")
 
     with col2:
-        st.image('https://raw.githubusercontent.com/Onlygall/Heart-attack/main/image/IMG_20250611_202619%20(1).jpg', width=150, caption="👤 Galeh")
+        st.image("https://raw.githubusercontent.com/Onlygall/Heart-attack/main/image/Galeh.jpg", width=150, caption="🦸‍♂️ Galeh saputra
+        (2304030053) ")
         st.image('https://raw.githubusercontent.com/Onlygall/Heart-attack/main/image/hahaha%20gas%20melon%20hahaha%20(1).jpg', width=150, caption="👤 Arista")
 
 
