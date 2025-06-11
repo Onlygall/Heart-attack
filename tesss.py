@@ -34,6 +34,7 @@ from sklearn.metrics import (
 import plotly.express as px
 import requests
 import streamlit.components.v1 as components
+from streamlit_lottie import st_lottie
 
 
 # ========== Load Dataset ==========
