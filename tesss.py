@@ -17,6 +17,7 @@ import joblib
 from joblib import load
 import pickle
 import os
+
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
@@ -57,35 +58,34 @@ page = st.sidebar.selectbox("Pilih Halaman", pages)
 # ========== Halaman: Informasi ==========
 if page == "📰 Informasi":
 
-    # Load Lottie animation
-    def load_lottieurl(url: str):
-        r = requests.get(url)
-        if r.status_code != 200:
-            return None
-        return r.json()
-
-    lottie_heart = load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_tutvdkg0.json")
-
-    # Judul dan animasi
     st.title("💓 Serangan Jantung Di Indonesia")
-    col1, col2 = st.columns([2, 1])
 
+    components.html("""
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <lottie-player 
+                src="https://assets10.lottiefiles.com/packages/lf20_jn2kxfyt.json"  
+                background="transparent"  
+                speed="1"  
+                style="width: 150px; height: 150px;"  
+                loop  
+                autoplay>
+            </lottie-player>
+        </div>
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    """, height=180)
+
+    # Layout pembuka
+    col1, col2 = st.columns([2, 1])
     with col1:
         st.markdown("### Statistik, Penyebab, dan Upaya Pencegahan")
         st.write("""
-        Serangan jantung merupakan salah satu penyebab kematian utama di Indonesia...
+        Serangan jantung merupakan salah satu penyebab kematian utama di Indonesia. Penyakit ini terjadi ketika aliran darah ke bagian jantung tersumbat, biasanya karena penumpukan lemak, kolesterol, dan zat lain.
+        Menurut data Kementerian Kesehatan dan WHO, prevalensi penyakit jantung terus meningkat dari tahun ke tahun.
+
+        Berikut adalah data dan informasi terkait tren serangan jantung di Indonesia.
         """)
 
-    with col2:
-        if lottie_heart:
-            components.html(f"""
-                <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-                <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_tutvdkg0.json"
-                    background="transparent" speed="1" style="width: 100%; height: 150px;"
-                    loop autoplay></lottie-player>
-            """, height=180)
-
-    # ========== Data ==========
+    # Data
     prevalensi_data = pd.DataFrame({
         "Tahun": [2013, 2018, 2023],
         "Prevalensi (%)": [0.5, 1.5, 0.85]
@@ -114,45 +114,71 @@ if page == "📰 Informasi":
         "Prevalensi (%)": [1.67, 1.65, 1.56, 1.18, 1.08, 1.0, 0.95, 0.91, 0.88, 0.87]
     })
 
-    # ========== Visualisasi ==========
+    # Visualisasi 1
     st.subheader("📈 Prevalensi Penyakit Jantung per Tahun")
-    st.markdown("- **2013**: Prevalensi penyakit jantung sebesar **0,5%** ...")
+    st.markdown("""
+    - **2013**: Prevalensi penyakit jantung sebesar **0,5%** dari populasi.
+    - **2018**: Meningkat menjadi **1,5%**, setara dengan lebih dari **2,78 juta** penderita.
+    - **2023**: Berdasarkan Survei Kesehatan Indonesia, prevalensi mencapai **0,85%**, dengan jumlah penderita sekitar **2,29 juta orang** dari total **212,6 juta** penduduk berusia 15 tahun ke atas.
+    """)
     fig1 = px.line(prevalensi_data, x="Tahun", y="Prevalensi (%)", markers=True)
     st.plotly_chart(fig1, use_container_width=True)
 
+    # Visualisasi 2
     st.subheader("💰 Biaya Penanganan Penyakit Jantung oleh BPJS")
-    st.markdown("- **2014**: BPJS Kesehatan mengeluarkan dana sebesar Rp4,4 triliun ...")
-    fig2 = px.line(biaya_data, x="Tahun", y="Biaya (Triliun Rp)", markers=True,
-                   color_discrete_sequence=["red"])
+    st.markdown("""
+    - **2014**: BPJS Kesehatan mengeluarkan dana sebesar Rp4,4 triliun untuk penanganan penyakit jantung.
+    - **2016**: Meningkat menjadi Rp7,4 triliun.
+    - **2018**: Naik lagi menjadi Rp9,3 triliun.
+    - **2023**: Total pembiayaan untuk penyakit jantung dan stroke mencapai Rp22,8 triliun, menjadikannya beban biaya terbesar dalam program Jaminan Kesehatan Nasional.
+    """)
+    fig2 = px.line(biaya_data, x="Tahun", y="Biaya (Triliun Rp)", markers=True, color_discrete_sequence=["red"])
     st.plotly_chart(fig2, use_container_width=True)
 
+    # Visualisasi 3
     st.subheader("🧓 Usia Rata-rata Diagnosis Pertama")
-    fig3 = px.bar(usia_diagnosis_data, x="Tahun", y="Usia Rata-rata (Tahun)",
-                  color_discrete_sequence=["green"])
+    st.markdown("""
+    Rata-rata usia diagnosis pertama penyakit jantung menurun dari 48,5 tahun pada 2013 menjadi 43,2 tahun pada 2023.
+    """)
+    fig3 = px.bar(usia_diagnosis_data, x="Tahun", y="Usia Rata-rata (Tahun)", color_discrete_sequence=["green"])
     st.plotly_chart(fig3, use_container_width=True)
 
+    # Visualisasi 4
     st.subheader("📊 Kenaikan Kasus Berdasarkan Kelompok Usia")
-    fig4 = px.bar(kenaikan_usia_data, x="Kelompok Usia", y="Kenaikan Kasus (%)",
-                  color_discrete_sequence=["purple"])
+    st.markdown("""
+    Kasus penyakit jantung pada usia di bawah 45 tahun meningkat sebesar 66% antara 2020–2023, lebih cepat dibandingkan kelompok usia di atas 46 tahun yang meningkat 52%.
+    """)
+    fig4 = px.bar(kenaikan_usia_data, x="Kelompok Usia", y="Kenaikan Kasus (%)", color_discrete_sequence=["purple"])
     st.plotly_chart(fig4, use_container_width=True)
 
+    # Visualisasi 5
     st.subheader("🏥 10 Provinsi dengan Prevalensi Tertinggi (2023)")
-    fig5 = px.bar(provinsi_data, x="Prevalensi (%)", y="Provinsi", orientation='h',
-                  color_discrete_sequence=["orange"])
+    st.markdown("""
+    Berdasarkan data Survei Kesehatan Indonesia 2023, berikut adalah 10 provinsi dengan prevalensi penyakit jantung tertinggi:
+    """)
+    fig5 = px.bar(provinsi_data, x="Prevalensi (%)", y="Provinsi", orientation='h', color_discrete_sequence=["orange"])
     fig5.update_layout(yaxis=dict(autorange="reversed"))
     st.plotly_chart(fig5, use_container_width=True)
 
-    # ========== Penutup ==========
+    # Sumber data
     st.markdown("---")
     st.caption("Data bersumber dari Kemenkes, BPJS Kesehatan, dan Riskesdas.")
 
+    # Faktor risiko
     st.markdown("### ⚠️ Faktor Risiko Utama")
     st.markdown("""
-    - **Merokok**: Prevalensi merokok di kalangan pria dewasa ...
+    - **Merokok**: Prevalensi merokok di kalangan pria dewasa mencapai **74,3%**, dan **6,5%** di kalangan wanita.
+    - **Obesitas**: Prevalensi obesitas meningkat dari **10,5%** pada tahun **2013** menjadi **21,8%** pada tahun **2018**.
+    - **Gaya Hidup Tidak Sehat**: Pola makan tinggi lemak, gula, dan garam, serta kurangnya aktivitas fisik.
+    - **Stres dan Tekanan Kerja**: Banyak individu usia **30–40 tahun** mengalami tekanan tinggi dari pekerjaan dan tanggung jawab keluarga.
     """)
 
+    # Pencegahan
     st.markdown("### 🩺 Upaya Pencegahan dan Penanggulangan")
+    st.markdown("Kementerian Kesehatan RI telah melakukan berbagai upaya untuk menanggulangi peningkatan penyakit jantung, antara lain:")
     st.markdown("*Sumber: [kemkes.go.id](https://kemkes.go.id)*")
     st.markdown("""
-    - **Edukasi Masyarakat** ...
+    - **Edukasi Masyarakat**: Meningkatkan kesadaran tentang risiko penyakit jantung dan pentingnya gaya hidup sehat melalui program edukasi di sekolah dan komunitas.
+    - **Promosi Aktivitas Fisik**: Mendorong masyarakat untuk berolahraga secara teratur.
+    - **Penguatan Layanan Primer**: Meningkatkan kapasitas dan kapabilitas layanan kesehatan primer, termasuk pembangunan **Puskesmas** dan penyediaan **obat esensial**.
     """)
