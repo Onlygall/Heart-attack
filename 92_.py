@@ -402,6 +402,9 @@ elif page == "⚙️ Modeling":
 
     cluster_risk_map = risk_summary["risk_label"].to_dict()
     df_clustered["risk_level"] = df_clustered["cluster"].map(cluster_risk_map)
+    
+    pca = PCA(n_components=2)
+    X_pca = pca.fit_transform(X_cluster_processed)
 
     # Konversi hasil PCA ke DataFrame
     pca_df = pd.DataFrame(X_pca, columns=["PCA 1", "PCA 2"])
