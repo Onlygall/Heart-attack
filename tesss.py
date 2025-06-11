@@ -38,8 +38,8 @@ from streamlit_lottie import st_lottie
 
 
 # ========== Load Dataset ==========
-url = 'https://raw.githubusercontent.com/Onlygall/Heart-attack/main/heart_attack_prediction_indonesia.csv'
-data = pd.read_csv(url)
+urll = 'https://raw.githubusercontent.com/Onlygall/Heart-attack/main/heart_attack_prediction_indonesia.csv'
+data = pd.read_csv(urll)
 data['alcohol_consumption'] = data['alcohol_consumption'].fillna("None")
 
 
