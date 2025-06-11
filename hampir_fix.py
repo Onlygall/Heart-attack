@@ -740,7 +740,7 @@ elif page == "👥 About":
     col1, col2 = st.columns(2)
 
     with col1:
-        st.image('https://github.com/Onlygall/Heart-attack/blob/main/image/hahaha%20gas%20melon%20hahaha%20(1).jpg', width=150, caption="👤 Najwa")
+        st.image('https://raw.githubusercontent.com/Onlygall/Heart-attack/main/image/hahaha%20gas%20melon%20hahaha%20(1).jpg', width=150, caption="👤 Najwa")
         st.image('https://github.com/Onlygall/Heart-attack/blob/main/image/hahaha%20gas%20melon%20hahaha.jpg', width=150, caption="👤 Zulfa")
 
     with col2:
@@ -748,7 +748,7 @@ elif page == "👥 About":
         st.image('https://github.com/Onlygall/Heart-attack/blob/main/image/hahaha%20gas%20melon%20hahaha.jpg', width=150, caption="👤 Arista")
 
 
-    image_path = 'https://github.com/Onlygall/Heart-attack/blob/main/image/hahaha%20gas%20melon%20hahaha%20(1).jpg'
+    image_path = 'https://raw.githubusercontent.com/Onlygall/Heart-attack/main/image/hahaha%20gas%20melon%20hahaha%20(1).jpg'
     if os.path.exists(image_path):
         st.image(image_path, caption="👤 Najwa", width=150)
     else:
