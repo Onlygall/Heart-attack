@@ -714,6 +714,12 @@ elif page == "🔮 Prediksi":
 # Halaman: Tentang Tim
 # ===============================
 elif page == "👥 About":
+    st.image(
+        "https://raw.githubusercontent.com/Onlygall/Heart-attack/main/image/Kelompok_6.jpg",
+        caption="📸 Foto Kelompok 6",
+        use_column_width=True
+    )
+    
     st.title("👥 Tentang Tim")
     st.markdown("""
     Aplikasi ini dikembangkan oleh kelompok 6 mata kuliah Data mining, mahasiswa Matematika untuk keperluan tugas akhir.
