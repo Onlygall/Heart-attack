@@ -526,7 +526,7 @@ elif page == "⚙️ Modeling":
         color='lifestyle_category',
         color_discrete_map=color_map,
         hover_data=lifestyle_features,
-        title="🧬 Visualisasi PCA Berdasarkan Kategori Lifestyle",
+        title=" Visualisasi PCA Berdasarkan Kategori Lifestyle",
         labels={'pca_1': 'PCA Komponen 1', 'pca_2': 'PCA Komponen 2'}
     )
 
@@ -630,21 +630,28 @@ elif page == "⚙️ Modeling":
     pca_clinical = PCA(n_components=2)
     X_clinical_pca = pca_clinical.fit_transform(X_clinical_processed)
 
-    # Visualisasi dengan Streamlit
-    fig_clinical, ax_clinical = plt.subplots(figsize=(8, 6))
-    sns.scatterplot(
-        x=X_clinical_pca[:, 0],
-        y=X_clinical_pca[:, 1],
-        hue=ndf["clinical_label"],
-        palette="tab10",
-        ax=ax_clinical
+    # Tambahkan hasil PCA ke DataFrame
+    ndf["pca_clinical_1"] = X_clinical_pca[:, 0]
+    ndf["pca_clinical_2"] = X_clinical_pca[:, 1]
+
+    # Visualisasi interaktif
+    fig = px.scatter(
+        ndf,
+        x="pca_clinical_1", y="pca_clinical_2",
+        color="clinical_label",
+        title=" Visualisasi Klaster Gejala & Kondisi Klinis",
+        labels={"pca_clinical_1": "PCA Komponen 1", "pca_clinical_2": "PCA Komponen 2"},
+        color_discrete_sequence=px.colors.qualitative.Set2,
+        hover_data=["clinical_label"]
     )
 
-    ax_clinical.set_title("Klaster Gejala & Kondisi Klinis")
-    ax_clinical.set_xlabel("PCA 1")
-    ax_clinical.set_ylabel("PCA 2")
-    ax_clinical.legend(title="Kondisi Klinis")
-    st.pyplot(fig_clinical)
+    fig.update_layout(
+        template="plotly_white",
+        height=600,
+        legend_title="Kondisi Klinis"
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
     st.write("""
     Klastering ini bertujuan untuk mengelompokkan individu berdasarkan kondisi kesehatan klinis seperti tekanan darah, kolesterol, gula darah, dan hasil EKG. Berikut adalah hasil interpretasi dari masing-masing klaster:
 
