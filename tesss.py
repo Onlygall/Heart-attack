@@ -61,18 +61,17 @@ if page == "📰 Informasi":
 
     st.title("💓 Serangan Jantung Di Indonesia")
 
-    # Fungsi untuk load animasi dari URL
-    def load_lottieurl(url):
+    import requests
+
+    def load_lottie_url(url: str):
         r = requests.get(url)
         if r.status_code != 200:
             return None
         return r.json()
 
-    # Load animasi jantung
-    lottie_heart = load_lottieurl("https://assets10.lottiefiles.com/packages/lf20_jn2kxfyt.json")
-
-    # Tampilkan animasi
+    lottie_heart = load_lottie_url("https://assets10.lottiefiles.com/packages/lf20_jn2kxfyt.json")
     st_lottie(lottie_heart, speed=1, width=150, height=150, loop=True, quality="high")
+
 
     # Layout pembuka
     col1, col2 = st.columns([2, 1])
