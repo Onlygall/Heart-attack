@@ -77,7 +77,6 @@ if page == "📰 Informasi":
     # Layout pembuka
     col1, col2 = st.columns([2, 1])
     with col1:
-        st.markdown("### Statistik, Penyebab, dan Upaya Pencegahan")
         st.write("""
         Serangan jantung merupakan salah satu penyebab kematian utama di Indonesia. Penyakit ini terjadi ketika aliran darah ke bagian jantung tersumbat, biasanya karena penumpukan lemak, kolesterol, dan zat lain.
         Menurut data Kementerian Kesehatan dan WHO, prevalensi penyakit jantung terus meningkat dari tahun ke tahun.
