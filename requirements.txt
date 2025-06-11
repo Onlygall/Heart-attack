@@ -7,5 +7,3 @@ joblib
 xgboost
 lightgbm
 streamlit
-requests
-streamlit_lottie
