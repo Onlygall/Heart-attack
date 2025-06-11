@@ -61,19 +61,18 @@ if page == "📰 Informasi":
 
     st.title("💓 Serangan Jantung Di Indonesia")
 
-    components.html("""
-        <div style="display: flex; justify-content: center; align-items: center;">
-            <lottie-player 
-                src="https://assets10.lottiefiles.com/packages/lf20_jn2kxfyt.json"  
-                background="transparent"  
-                speed="1"  
-                style="width: 150px; height: 150px;"  
-                loop  
-                autoplay>
-            </lottie-player>
-        </div>
-        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    """, height=180)
+    # Fungsi untuk load animasi dari URL
+    def load_lottieurl(url):
+        r = requests.get(url)
+        if r.status_code != 200:
+            return None
+        return r.json()
+
+    # Load animasi jantung
+    lottie_heart = load_lottieurl("https://assets10.lottiefiles.com/packages/lf20_jn2kxfyt.json")
+
+    # Tampilkan animasi
+    st_lottie(lottie_heart, speed=1, width=150, height=150, loop=True, quality="high")
 
     # Layout pembuka
     col1, col2 = st.columns([2, 1])
