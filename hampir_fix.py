@@ -743,7 +743,7 @@ elif page == "👥 About":
         st.image('https://github.com/Onlygall/Heart-attack/blob/main/image/hahaha%20gas%20melon%20hahaha.jpg', width=150, caption="👤 Zulfa")
 
     with col2:
-        st.image('https://github.com/Onlygall/Heart-attack/blob/main/image/hahaha%20gas%20melon%20hahaha.jpg' width=150, caption="👤 Galeh")
+        st.image('https://github.com/Onlygall/Heart-attack/blob/main/image/hahaha%20gas%20melon%20hahaha.jpg', width=150, caption="👤 Galeh")
         st.image('https://github.com/Onlygall/Heart-attack/blob/main/image/hahaha%20gas%20melon%20hahaha.jpg', width=150, caption="👤 Arista")
 
     st.markdown("---")
