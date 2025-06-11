@@ -7,4 +7,4 @@ joblib
 xgboost
 lightgbm
 streamlit
-
+requests
