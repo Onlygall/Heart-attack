@@ -747,5 +747,13 @@ elif page == "👥 About":
         st.image('https://github.com/Onlygall/Heart-attack/blob/main/image/hahaha%20gas%20melon%20hahaha.jpg', width=150, caption="👤 Galeh")
         st.image('https://github.com/Onlygall/Heart-attack/blob/main/image/hahaha%20gas%20melon%20hahaha.jpg', width=150, caption="👤 Arista")
 
+
+   image_path = 'https://github.com/Onlygall/Heart-attack/blob/main/image/hahaha%20gas%20melon%20hahaha.jpg'
+   if os.path.exists(image_path):
+       st.image(image_path, caption="👤 Najwa", width=150)
+   else:
+       st.warning(f"Gambar {image_path} tidak ditemukan.")
+
+
     st.markdown("---")
     st.markdown("# Terima kasih telah menggunakan aplikasi kami! ❤️")
