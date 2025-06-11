@@ -720,11 +720,11 @@ elif page == "👥 About":
 
     Dosen pengampu: Bp. M. Faris Al Hakim S.Pd., M.Cs
 
-    **Anggota Kelompok:**
+    **📸 Foto Kelompok 6**
     """)
     st.image(
         "https://raw.githubusercontent.com/Onlygall/Heart-attack/main/image/Kelompok_6.jpg",
-        caption="📸 Foto Kelompok 6",
+        caption="Anggota Kelompok:",
     )
     
 
