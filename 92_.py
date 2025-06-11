@@ -513,27 +513,30 @@ elif page == "⚙️ Modeling":
     pca = PCA(n_components=2)
     lifestyle_2d = pca.fit_transform(df_scaled)
 
-    # 2. Tambahkan hasil PCA ke DataFrame
+    # Tambahkan hasil PCA ke DataFrame (jika belum)
     ndf['pca_1'] = lifestyle_2d[:, 0]
     ndf['pca_2'] = lifestyle_2d[:, 1]
 
-    # 3. Visualisasi dengan subplot dan Streamlit
-    fig_pca, ax_pca = plt.subplots(figsize=(10, 6))
-    sns.scatterplot(
-        data=ndf,
-        x='pca_1', y='pca_2',
-        hue='lifestyle_category',
-        palette={'Sehat': 'green', 'Sedang': 'orange', 'Tidak Sehat': 'red'},
-        alpha=0.6,
-        ax=ax_pca
+    # Warna sesuai kategori lifestyle
+    color_map = {'Sehat': 'green', 'Sedang': 'orange', 'Tidak Sehat': 'red'}
+
+    # Plot interaktif
+    fig = px.scatter(
+        ndf, x='pca_1', y='pca_2',
+        color='lifestyle_category',
+        color_discrete_map=color_map,
+        hover_data=lifestyle_features,
+        title="🧬 Visualisasi PCA Berdasarkan Kategori Lifestyle",
+        labels={'pca_1': 'PCA Komponen 1', 'pca_2': 'PCA Komponen 2'}
     )
 
-    ax_pca.set_title("Visualisasi PCA Berdasarkan Kategori Lifestyle")
-    ax_pca.set_xlabel("PCA Komponen 1")
-    ax_pca.set_ylabel("PCA Komponen 2")
-    ax_pca.legend(title='Kategori Lifestyle')
-    st.pyplot(fig_pca)
+    fig.update_layout(
+        legend_title="Kategori Lifestyle",
+        template="plotly_white",
+        height=600
+    )
 
+    st.plotly_chart(fig, use_container_width=True)
 
     # Ringkasan distribusi kategori
     summary = ndf['lifestyle_category'].value_counts()
