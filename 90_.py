@@ -733,11 +733,11 @@ elif page == "👥 About":
 
     with col1:
         st.image('https://raw.githubusercontent.com/Onlygall/Heart-attack/main/image/najwa.jpg', width=150, caption="Najwa Rahma Puspita         -2304030042-")
-        st.image('https://raw.githubusercontent.com/Onlygall/Heart-attack/main/image/hahaha%20gas%20melon%20hahaha%20(1).jpg', width=150, caption="Zulfa Fachirotul Maulida       -2304030061-")
+        st.image('https://raw.githubusercontent.com/Onlygall/Heart-attack/main/image/Zulfa.jpg', width=150, caption="Zulfa Fachirotul Maulida       -2304030061-")
 
     with col2:
         st.image('https://raw.githubusercontent.com/Onlygall/Heart-attack/main/image/Galeeh.jpg', width=150, caption="Galeh saputra -2304030053- ")
-        st.image('https://raw.githubusercontent.com/Onlygall/Heart-attack/main/image/hahaha%20gas%20melon%20hahaha%20(1).jpg', width=150, caption="Wahida Arista Putri -2304030073-")
+        st.image('https://raw.githubusercontent.com/Onlygall/Heart-attack/main/image/Arista.jpg', width=150, caption="Wahida Arista Putri -2304030073-")
 
 
 
