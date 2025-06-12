@@ -631,10 +631,10 @@ elif page == "⚙️ Modeling":
 
     | **Label Klaster**             | **Ciri-Ciri Utama**                                                                 |
     |------------------------------|--------------------------------------------------------------------------------------|
-    | 🟥 **Hipertensif**            | Memiliki tekanan darah tinggi, kadang disertai kolesterol LDL tinggi                |
-    | 🟧 **Dislipidemia**           | Gangguan lemak darah (LDL dan trigliserida tinggi, HDL rendah)                      |
-    | 🟨 **Abnormal EKG**           | Hasil EKG menunjukkan ketidaknormalan, walaupun indikator lainnya relatif stabil   |
-    | 🟦 **Gula Darah Tinggi**      | Gula darah puasa tinggi, mengarah ke kondisi pre-diabetes atau diabetes awal       |
+    | 🟩 **Hipertensif**            | Memiliki tekanan darah tinggi, kadang disertai kolesterol LDL tinggi                |
+    | 🟥 **Dislipidemia**           | Gangguan lemak darah (LDL dan trigliserida tinggi, HDL rendah)                      |
+    | 🟦 **Abnormal EKG**           | Hasil EKG menunjukkan ketidaknormalan, walaupun indikator lainnya relatif stabil   |
+    | 🟧 **Gula Darah Tinggi**      | Gula darah puasa tinggi, mengarah ke kondisi pre-diabetes atau diabetes awal       |
 
 
     Catatan:
