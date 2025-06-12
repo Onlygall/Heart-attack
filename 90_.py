@@ -662,7 +662,7 @@ elif page == "🔮 Prediksi":
 
     cholesterol_level = st.slider("Total Kolesterol", 0, 300, 150)
     cholesterol_ldl = st.slider("LDL Kolesterol", 0, 300, 100)
-    cholesterol_hdl = st.slider("HDL Kolesterol", 0, 150, 100)
+    cholesterol_hdl = st.slider("HDL Kolesterol", 0, 150, 60)
     triglycerides = st.slider("Trigliserida", 0, 500, 100)
     blood_pressure_systolic = st.slider("Tekanan Darah Sistolik", 70,250, 120)
     blood_pressure_diastolic = st.slider("Tekanan Darah Diastolik",20, 150, 60)
