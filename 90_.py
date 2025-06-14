@@ -708,7 +708,7 @@ elif page == "🔮 Prediksi":
         ]])
 
         prediction = model.predict(input_data)
-        result =  f"{nama} 💔 kamu berisiko terkena serangan jantung" if prediction[0] == 1 else  f"{nama} ❤️ kamu tidak berisiko terkena serangan jantung"
+        result =  f"{nama} 💔 kamu berisiko terkena serangan jantung" if prediction[0] == 1 else  f"{nama} 💖 kamu tidak berisiko terkena serangan jantung"
         st.subheader("Hasil Prediksi:")
         st.success(result)
 
