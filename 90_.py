@@ -708,7 +708,7 @@ elif page == "🔮 Prediksi":
         ]])
 
         prediction = model.predict(input_data)
-        result =  f"{nama} 💔 Kamu Berisiko Terkena Serangan Jantung" if prediction[0] == 1 else  f"{nama} ❤️ Kamu Tidak Berisiko Terkena Serangan Jantung"
+        result =  f"{nama} 💔 kamu berisiko terkena serangan jantung" if prediction[0] == 1 else  f"{nama} ❤️ kamu tidak berisiko terkena serangan jantung"
         st.subheader("Hasil Prediksi:")
         st.success(result)
 
@@ -734,7 +734,7 @@ elif page == "👥 About":
     col1, col2 = st.columns(2)
 
     with col1:
-        st.image('https://raw.githubusercontent.com/Onlygall/Heart-attack/main/image/najwa.jpg', width=150, caption="Najwa Rahma Puspita         -2304030042-")
+        st.image('https://raw.githubusercontent.com/Onlygall/Heart-attack/main/image/najwa.jpg', width=150, caption="Najwa Rahma Puspita         -2304030043-")
         st.image('https://raw.githubusercontent.com/Onlygall/Heart-attack/main/image/Zulfa.jpg', width=150, caption="Zulfa Fachirotul Maulida       -2304030061-")
 
     with col2:
