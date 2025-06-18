@@ -144,12 +144,12 @@ if page == "📰 Informasi":
 
     st.markdown("### 🩺 Upaya Pencegahan dan Penanggulangan")
     st.markdown("Kementerian Kesehatan RI telah melakukan berbagai upaya untuk menanggulangi peningkatan penyakit jantung, antara lain:")
-    st.markdown("*Sumber: [kemkes.go.id](https://kemkes.go.id)*")
     st.markdown("""
     - **Edukasi Masyarakat**: Meningkatkan kesadaran tentang risiko penyakit jantung dan pentingnya gaya hidup sehat melalui program edukasi di sekolah dan komunitas.
     - **Promosi Aktivitas Fisik**: Mendorong masyarakat untuk berolahraga secara teratur.
     - **Penguatan Layanan Primer**: Meningkatkan kapasitas dan kapabilitas layanan kesehatan primer, termasuk pembangunan **Puskesmas** dan penyediaan **obat esensial**.
     """)
+    st.caption("*Sumber: [kemkes.go.id](https://kemkes.go.id)*")
 
 
 # ===============================
